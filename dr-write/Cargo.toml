@@ -24,7 +24,9 @@ wasmbus-rpc = "0.13"
 wasmcloud-interface-httpclient = "0.9"
 wasmcloud-interface-httpserver = "0.10"
 wasmcloud-interface-keyvalue = "0.10"
-wasmcloud-interface-blobstore = "0.6"
+wasmcloud-interface-messaging = "0.9"
+
+doi-interface = { path = "../doi-interface/rust"}
 
 [profile.release]
 # Optimize for small code size

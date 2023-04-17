@@ -1,12 +1,12 @@
 use anyhow::{Result};
 use cookie::Cookie;
 use rust_embed::RustEmbed;
-use serde_json::{json, from_slice};
+use serde_json::{json, from_slice, Value};
 use serde::{Deserialize, Serialize};
 use wasmbus_rpc::actor::prelude::*;
 use wasmcloud_interface_httpserver::{HttpRequest, HttpResponse, HttpServer, HttpServerReceiver, HeaderMap};
 use std::str::FromStr;
-
+use doi_interface::{DoiRequest};
 
 #[derive(RustEmbed)]
 #[folder = "./asset"]
@@ -19,14 +19,21 @@ struct DrWriteActor {}
 
 mod api;
 
-fn get_uid(headers: &HeaderMap) -> Option<String> {
+fn get_from_cookie(headers: &HeaderMap, field: &str) -> Option<String> {
     let emptyString = "".to_string();
     let mut cookies  = Cookie::split_parse(headers.get("cookie")?.first().unwrap_or_else(|| &emptyString));
     
     cookies.find_map(|result| match result {
-        Ok(cookie) if cookie.name() == "uid" => Some(cookie.value().to_string()),
+        Ok(cookie) if cookie.name() == field => Some(cookie.value().to_string()),
         _ => None
     })
+}
+
+fn get_uid(headers: &HeaderMap) -> Option<String> {
+    return get_from_cookie(headers, &"uid")
+}
+fn get_name(headers: &HeaderMap) -> Option<String> {
+    return get_from_cookie(headers, &"name")
 }
 
 // format output and control cookie duration
@@ -120,6 +127,8 @@ impl HttpServer for DrWriteActor {
         let segments: Vec<&str> = path.trim_end_matches('/').split('/').collect();
         // wrap_result(ctx, "test".to_string(), json!({"test": true})).await
         let some_uid = get_uid(&req.header);
+        let some_name = get_name(&req.header);
+        
         match some_uid {
             Some(uid) => {
                 match (req.method.as_ref(), segments.as_slice()) {
@@ -147,8 +156,8 @@ impl HttpServer for DrWriteActor {
                     ("GET", ["api","folders"|"folder","next"]) => 
                     wrap_future_result(ctx, uid.clone(), api::folder_counter(ctx, uid).await).await,
 
-                    ("GET", ["api","dois"|"doi","next"]) => 
-                    wrap_future_result(ctx, uid.clone(), api::doi_counter(ctx, uid).await).await,
+                    // ("GET", ["api","dois"|"doi","next"]) => 
+                    // wrap_future_result(ctx, uid.clone(), api::doi_counter(ctx, uid).await).await,
 
                     // start FOLDERS
                     //C
@@ -176,42 +185,19 @@ impl HttpServer for DrWriteActor {
                     
 
                     //// DOI fetch and create
-                    ("POST", ["api"|"v1"|"v2"|"v3","doi"]) => match from_slice(&req.body) { 
-                        Ok(req) => wrap_future_result(ctx, uid.clone(), api::doi_create(ctx, uid, req).await).await,
+                    ("POST", ["api"|"v1"|"v2"|"v3","doi"]) => match from_slice::<Value>(&req.body) { 
+                        Ok(r) => {
+                            wrap_future_result(ctx, uid.clone(), api::doi_create(ctx, uid.clone(), some_name.clone(), &r).await).await
+                        },
                         Err(e) => Ok(HttpResponse::bad_request(format!(
                             "input error: {:?}",
                             e
                         )))
                     },
 
-                    //// DOI refetch
-                    ("POST", ["ref","doi"]) => match from_slice(&req.body) { 
-                        Ok(req) => wrap_future_result(ctx, uid.clone(), api::doi_fetch(ctx, uid, req).await).await,
-                        Err(e) => Ok(HttpResponse::bad_request(format!(
-                            "input error: {:?}",
-                            e
-                        )))
-                    },
-                    //// DOI inject
-
-                    ("GET", ["dpt",folder]) => { 
+                    ("GET", ["api"|"v1"|"v2"|"v3","doi",_]) => { 
                         let doi = form_urlencoded::parse(req.query_string.as_bytes()).find(|(n, _)| n == "doi").map(|(_, v)| v.to_string()).unwrap();
-                        wrap_future_result(ctx, uid.clone(), api::doi_print_text(ctx, uid.clone(), folder.to_string(), doi).await).await
-                    },
-
-                    ("GET", ["j2","doi", folder]) => {
-                        let resp = get_asset(&"j2.txt".to_string());
-                        if !resp.found {
-                            Ok(HttpResponse::not_found())
-                        } else {
-                            wrap_future_result(ctx, uid.clone(), api::doi_inject_2(ctx, uid, folder.to_string(), resp.asset).await).await
-                        }
-                    },
-
-                    ("GET", ["api"|"v1"|"v2"|"v3","doi",folder]) => { 
-                        let doi = form_urlencoded::parse(req.query_string.as_bytes()).find(|(n, _)| n == "doi").map(|(_, v)| v.to_string()).unwrap();
-
-                        match api::doi_read_public(ctx, folder.to_string(), doi).await {
+                        match api::doi_read(ctx, uid.clone(), doi).await {
                             Ok(n) => wrap_result(ctx, uid.clone(), n).await,
                             Err(e) => Ok(HttpResponse::bad_request(format!(
                                 "fetch error: {:?}",
@@ -219,6 +205,37 @@ impl HttpServer for DrWriteActor {
                             )))
                         }
                     },
+
+                    // //// DOI refetch
+                    // ("POST", ["ref","doi"]) => match from_slice(&req.body) { 
+                    //     Ok(r) => wrap_future_result(ctx, uid.clone(), api::doi_fetch(ctx, r).await).await,
+                    //     Err(e) => Ok(HttpResponse::bad_request(format!(
+                    //         "input error: {:?}",
+                    //         e
+                    //     )))
+                    // },
+                    //// DOI inject
+
+                    // ("GET", ["dpt",folder]) => { 
+                    //     let doi = form_urlencoded::parse(req.query_string.as_bytes()).find(|(n, _)| n == "doi").map(|(_, v)| v.to_string()).unwrap();
+                    //     wrap_future_result(ctx, uid.clone(), api::doi_print_text(ctx, uid.clone(), folder.to_string(), doi).await).await
+                    // },
+
+                    // ("GET", ["j2","doi", folder]) => {
+                    //     let resp = get_asset(&"j2.txt".to_string());
+                    //     if !resp.found {
+                    //         Ok(HttpResponse::not_found())
+                    //     } else {
+                    //         let r = DoiRequest{
+                    //             doi:"".to_string(),
+                    //             uid:uid.clone(),
+                    //             user:None,
+                    //             folder: Some(folder.clone()),
+                    //         };
+                    //         wrap_future_result(ctx, uid.clone(), api::doi_inject_2(ctx, r, resp.asset).await).await
+                    //     }
+                    // },
+
 
                     //R - public access, if allowed
                     ("GET", ["pub","folders", path]) =>  wrap_future_result(ctx, uid.clone(), api::folders_read_public(ctx, path.to_string()).await).await,
@@ -268,6 +285,7 @@ impl HttpServer for DrWriteActor {
                             e
                         ))),
                     },
+
                     ("GET", _) => {
                         let resp = get_asset(&req.path);
                         if !resp.found {

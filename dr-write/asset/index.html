@@ -20,9 +20,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
   <link rel="stylesheet" href="/normalize.css"/>
-  <link rel="stylesheet" href="/style.css?v=3"/>
-
-  <link rel="manifest" href="/site.webmanifest"/>
+  <link rel="stylesheet" href="/style.css?v=5"/>
   <meta name="theme-color" content="#fafafa">
 </head>
 
@@ -34,14 +32,22 @@
                 <h3 class="title">Dr. Write</h3>
                 <h3 class="subtitle">We help you write research paper fast</h3>
                 <div class="form--group">
-            <label class="form--label form--label__large" for="name">Your name:</label>
-            <input class="form--input form--input__large" id="name" name="name" type="text" />
-                </div><div class="form--group">
-            <input class="form--input form--checkbox__left" id="cookie" name="cookie" disabled readonly checked type="checkbox" />
-            <label class="form--label form--label__left" for="cookie">
-                <b>We use cookie.</b><br/>
-                <i>By clicking the "start" button below, you agree to store necessary cookies to help maintain your usage session. This cookie is not directly linked to tracking or advertising features.  In order to delivery our service, tools, services and infrasturctures provided by third party service providers are used.  The cookie may be visible in their logs.</i>
-            </label>
+                    <label class="form--label form--label__large" for="uid">Team: <label>(<input onchange="try{PgLogin.random_team_code(this.checked)}finally{}" id="use_rnd" type="checkbox" /> randomize)</label></label>
+                    
+                    <input class="form--input form--input__large" id="login-uid" name="uid" type="text" />
+                    <div class="form--input form--input__large" style="margin-left: -64%; padding: 20px; font-size: 9pt; position: absolute; color: black; margin-top: 20px; text-align: left;">User with same team code share the research and enjoy easy collaborations.</div>
+
+                </div>
+                <div class="form--group">
+                    <label class="form--label form--label__large" for="name">Your name:</label>
+                    <input class="form--input form--input__large" id="login-name" name="name" type="text" />
+                </div>
+                <div class="form--group">
+                    <input class="form--input form--checkbox__left" id="cookie" name="cookie" disabled readonly checked type="checkbox" />
+                    <label class="form--label form--label__left" for="cookie">
+                        <b>We use cookie.</b><br/>
+                        <i>By clicking the "start" button below, you agree to store necessary cookies to help maintain your usage session. This cookie is not directly linked to tracking or advertising features.  In order to delivery our service, tools, services and infrasturctures provided by third party service providers are used.  The cookie may be visible in their logs.</i>
+                    </label>
                 </div><div class="form--group">
                     <button id="btn_start" class="form--button__large" type="submit">
 Start
@@ -54,6 +60,8 @@ Start
         <div class="dashboard">
             <div class="dashboard--left" >
                 <div class="dashboard--left--top">
+                    <button type="button" class="nav-button float-abs-right" onclick="PgLogin.logout()">Logout</button>
+                    
                     <button type="button" class="nav-button" onclick="PgWrite.pageload()">Refresh</button>
                     
                     <button type="button" class="nav-button" onclick="PgWrite.new_folder('')">New Folder</button>
@@ -79,10 +87,10 @@ Start
                 <div class="dashboard--right--bottom">
 <div class="dashboard--right--bottom--float"  id="main-buttons">
     <div class="dashboard--doi-input">
-        <input class="form--input form--input__doi" placeholder="1234/01234.12323" id="doi" name="doi" type="text" />
+        <input class="form--input form--input__doi" placeholder="keywords" id="search_doi" name="doi" type="text" />
         <label class="form--label form--label__doi" for="doi">
-            <button class="form--label__doi form--button__doi" type="button" onclick="">
-                find DOI
+            <button class="form--label__doi form--button__doi" type="button" onclick="PgWrite.j_search($('#search_doi').val())">
+                Search
             </button>
         </label> 
     </div>
@@ -123,6 +131,7 @@ Start
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
    
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js" crossorigin="anonymous"></script>
+  <script src="/randword.js" crossorigin="anonymous"></script>
   
   <script>
 function click_copy(ta_id) {
@@ -132,6 +141,35 @@ function click_copy(ta_id) {
         element.setSelectionRange(0, 99999);
         document.execCommand('copy');
     } finally {}
+}
+function createCookie(name, value, days) {
+    var expires;
+
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    } else {
+        expires = "";
+    }
+    document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = encodeURIComponent(name) + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ')
+            c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0)
+            return decodeURIComponent(c.substring(nameEQ.length, c.length));
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
 }
 
 TweenLite.set('body',{perspective:700});
@@ -168,17 +206,46 @@ var PgLogin = (function(){ // namespacing static class
 
     PgLogin = {};
     PgLogin.pageload = function() {
-        $('.login #name').val(name);
-        ts = new Date().valueOf();
+    }
+
+    PgLogin.random_team_code = (rand) => {
+        if(rand) {
+            let w = words({
+                exactly: 2,
+            });
+            w.push(parseInt(Math.random()*9999))
+            $('#login-uid').val(w.join('-'));
+        } else {
+            $('#login-uid').val();
+        }
+    }
+
+    PgLogin.logout = function(){
+        tl.seek('Dot0').pause();
+        eraseCookie("uid");
+        eraseCookie("name");
     }
     PgLogin.start = function (evt) {  //public
         evt.preventDefault();
-        ts = new Date().valueOf();
-        name = $('.login #name').val();
+        // ts = new Date().valueOf();
+        const uid = $('#login-uid').val();
+        name = $('#login-name').val();
+        
+        if (uid.length < 1) {
+            alert("please give a team");
+            return false;
+        }
         if (name.length < 1) {
             alert("please give a name");
             return false;
         }
+        createCookie("uid", uid, 399);
+        createCookie("name", name, 399);
+        
+        tl.seek('Dot1').pause();
+
+        PgWrite.pageload();
+        /*
         $.ajax({
             type: "POST",
             url: start_endpoint,
@@ -186,16 +253,13 @@ var PgLogin = (function(){ // namespacing static class
             success: (d,s,x)=>{
                 if(s === 'success'){
                     console.log(d,s);
-                    tl.seek('Dot1').pause();
-
-                    PgWrite.pageload();
                 } else {
                     console.log('err', d)
                     alert('fail to launch');
                 }
             },
             dataType: 'json'
-        });
+        });*/
     };
 
     return PgLogin;
@@ -225,7 +289,7 @@ var PgWrite = (function(){ // namespacing static class
             dataType: 'json',
             success: (d, s) => {
                 if(s === 'success'){
-                    data_dois[doi] = d;
+                    data_dois[doi] = typeof d === 'string' ? JSON.parse(d) : d;
                     console.log('result', data_dois);
                 }
                 // this is BG call, nothing to do.
@@ -256,8 +320,11 @@ var PgWrite = (function(){ // namespacing static class
 
         for (const ki in keys) {
             const k = keys[ki];
-            for(var i = _on.length-1; i>=0; i--){
-                if (k.indexOf(_on[i]) === 0){
+            folders[k].c = [];
+            const li = k.lastIndexOf('_');
+            const pfx = k.substring(0, li);
+            for(var i = _on.length-1; i>=0; i--){   
+                if (pfx === _on[i]){
                     folders[_on[i]].c.push(k);
                 }
             }
@@ -299,14 +366,17 @@ var PgWrite = (function(){ // namespacing static class
     }
 
     function _get_best_date(d) {
-        if(d.pub_year) {
-            return [d.pub_year, d.pub_month, d.pub_day];
-        } else if (d.pol_year) {
-            return [d.pol_year, d.pol_month, d.pol_day];
-        } else if (d.create_year) {
-            return [d.create_year, d.create_month, d.create_day];
-        } else {
-            return [];
+        if(d['published-print'] && d['published-print']['date-parts'] && d['published-print']['date-parts'][0] && d['published-print']['date-parts'][0].length > 1) {
+            return d['published-print']['date-parts'][0];
+        }
+
+        if(d['published-online'] && d['published-online']['date-parts'] && d['published-online']['date-parts'][0] && d['published-online']['date-parts'][0].length > 1) {
+            return d['published-online']['date-parts'][0];
+        }
+
+
+        if(d['created'] && d['created']['date-parts'] && d['created']['date-parts'][0] && d['created']['date-parts'][0].length > 1) {
+            return d['created']['date-parts'][0];
         }
     }
 
@@ -326,9 +396,9 @@ var PgWrite = (function(){ // namespacing static class
 
     function _format_author_inline(d){
         var t = '';
-        if(d.authors.length > 0){
-            t+=_format_name_inline(d.authors[0]);
-            if(d.authors.length > 1){
+        if(d.author.length > 0){
+            t+=_format_name_inline(d.author[0]);
+            if(d.author.length > 1){
                 t+=' et al.';
             }
             return t;
@@ -361,21 +431,28 @@ var PgWrite = (function(){ // namespacing static class
         return ", n.d.";
     }
 
+    function _convert_format(c){
+        let d = {
+            doi: c.DOI,
+        }
+    }
+
     function _get_html_table(d) {
-        const doi = d.doi;
+        
+        const doi = d.DOI;
         const bd = _get_best_date(d);
         
         var h = '<div class="data-row" onclick="$(\'chb-'+doi+'\').toggle()">';
             h += '<div class="data-col__select"><input type="checkbox" class="data-col-select-chb" id="chb-'+doi+'" checked name="select[]" value="'+doi+'" /></div>';
-            h += '<div class="data-col__title">'+d.titles.join(" | \n") +       '</div>';
+            h += '<div class="data-col__title">'+d.title.join(" | \n") +       '</div>';
             h += '<div class="data-col__inline"><textarea id="inline-'+doi+'" disabled readonly>'+_format_author_inline(d)+
                 _format_year_inline(bd)
                 +'</textarea></div>';
             h += '<div class="data-col__inline-copy"><button type="button" onclick="click_copy(\'inline-'+doi+'\')">📋</button></div>';
             h += '<div class="data-col__publisher">'+d.publisher+'</div>';
-            h += '</div><div class="data-row"><div class="data-col__authors">Authors: '+_format_names(d.authors)+'</div></div><div class="data-row">';
-            h += '<div class="data-col__editors">Editors: '+_format_names(d.editors)+'</div></div><div class="data-row">';
-            h += '<div class="data-col__abstract">'+ (d.summary?d.summary:'---') +'</div>';
+            h += '</div><div class="data-row"><div class="data-col__authors">Authors: '+_format_names(d.author)+'</div></div><div class="data-row">';
+            h += '<div class="data-col__editors">Editors: '+_format_names(d.editor)+'</div></div><div class="data-row">';
+            h += '<div class="data-col__abstract">'+ (d.abstract?d.abstract:' (no abstract) ') +'</div>';
         h+='</div>';
         return h;
     }
@@ -384,7 +461,7 @@ var PgWrite = (function(){ // namespacing static class
         const fk = current_folder;
         const f = folders[fk];
         $('#focus-folder-title').html(f.title);
-        var h = '<form id="process_selection" onsubmit="try{PgWrite.generate_suggestion(this,event);}finally{return false;}"><div class="data-row"><div class="data-col__select">&nbsp;</div><div class="data-col__title"> Title </div> <div class="data-col__inline"> inline citation</div><div class="col__inline-copy"> </div><div class="data-col__publisher"> inline citation</div></div>';
+        var h = '<form id="process_selection" onsubmit="try{PgWrite.generate_suggestion(this,event);}finally{return false;}"><div class="data-row"><div class="data-col__select">&nbsp;</div><div class="data-col__title"> Title </div> <div class="data-col__inline"> inline citation</div><div class="col__inline-copy"> </div><div class="data-col__publisher"> Publisher</div></div>';
         for(const doi in f.nodes ){
             console.log('d', doi);
             console.log(data_dois[doi]);
@@ -506,7 +583,7 @@ var PgWrite = (function(){ // namespacing static class
             run_doi.push($(this).val());
         });
         redraw_suggestion();
-    }
+    };
 
     PgWrite.new_folder = (parent) => {
         if(next_num<0) {
@@ -514,7 +591,6 @@ var PgWrite = (function(){ // namespacing static class
             load_next_number();
             return;
         }
-
         var title = '';
         if (title = prompt("Give a folder name", "Sample folder")){
              $.ajax({
@@ -527,20 +603,72 @@ var PgWrite = (function(){ // namespacing static class
                     parent
                 }),
                 dataType: 'json',
-                success: (nf) => {
-                    next_num += 1;
-                    console.log('created', nf);
-                    folders[nf.path] = nf;
-                    redraw_menu();
+                success: (nf, s) => {
+                    if(s === 'success'){
+                        next_num += 1;
+                        nf.c = [];
+                        folders[nf.path] = nf;
+                        check_child();
+                        redraw_menu();
+                    }
                 }
             });
         }
+    };
+    
+    var upload_queue = [];
+    var uploader = setInterval(() => {
+        if(upload_queue.length > 0){
+            const obj = upload_queue.pop();
+            console.log('pq>', obj);
+            $.ajax({
+                type: 'POST',
+                url: doi_endpoint,
+                data: JSON.stringify(obj),
+                dataType: 'text', // no need to parse
+                success: (d, s) => {
+                    console.log('upload result : ', d, s)
+                }
+            });
+        }
+    }, 500);
+
+    function _queue_journal(j) {
+        upload_queue.push(j);
+    }
+    function _process_crossref_works(jo, folder) {
+        if(jo.message && jo.message.items && jo.message.items.length>0){
+            jo.message.items.forEach(itm => {
+                itm.folder = folder;
+                itm.name = name;
+                _queue_journal(itm);
+                data_dois = itm;
+                folders[folder].nodes = itm;
+            });
+        }
+    };
+
+    PgWrite.j_search = (topic) => {
+        let endpoint = 'https://api.crossref.org/works?sort=score&query=' +topic
+        $.ajax({
+            type: 'GET',
+            url: endpoint,
+            dataType: 'json',
+            success: (d, s) => {
+                if(s === 'success'){
+                    _process_crossref_works(d, current_folder);
+                } else {
+                    console.log('e',s, d);
+                }
+
+                console.log('result', data_dois);
+                redraw_body();
+            }
+        });
     }
 
 return PgWrite;
 })();
-
-
 $(PgWrite.pageload);// if fail show login page
   </script>
 

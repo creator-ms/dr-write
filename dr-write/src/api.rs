@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use anyhow::{anyhow, Result, Error};
 use wasmbus_rpc::actor::prelude::Context;
+use doi_interface::{DoiRequest,DoiNode};
 
 #[derive(Serialize, Deserialize)]
 pub struct SetupRequest {
@@ -22,13 +23,6 @@ pub struct FolderUpdateRequest {
 
     #[serde(default)]
     public: bool
-}
-
-#[derive(Serialize, Deserialize)]
-pub struct DoiFetchRequest {
-    folder: String,// similar to parent of folder
-    
-    doi: String
 }
 
 pub mod store;
@@ -53,8 +47,8 @@ pub async fn folders_delete(ctx: &Context, uid: String, path: String) -> Result<
 pub async fn folders_read_public(ctx: &Context, path: String) -> Result<store::Folder> {
     store::folders_r_p(ctx, path).await
 }
-pub async fn doi_read_public(ctx: &Context, folder: String, doi: String) -> Result<store::DoiNode> {
-    store::doi_r_p(ctx, folder, doi.replace("%2F", "/")).await
+pub async fn doi_read(ctx: &Context, uid: String, doi: String) -> Result<String> {
+    store::doi_r(ctx, uid, doi.replace("%2F", "/")).await
 }
 
 // debug only
@@ -62,27 +56,31 @@ pub async fn folder_counter(ctx: &Context, uid: String) -> Result<String> {
     store::counter(ctx, uid, "f").await
 }
 
-// debug only
-pub async fn doi_counter(ctx: &Context, uid: String) -> Result<String> {
-    store::counter(ctx, uid, "d").await
+// // debug only
+// pub async fn doi_counter(ctx: &Context, uid: String) -> Result<String> {
+//     store::counter(ctx, uid, "d").await
+// }
+
+// C of DOI, by upload
+pub async fn doi_create(ctx: &Context, team: String, by_user: Option<String>, req: &Value) -> Result<String> {
+    store::doi_c(ctx, team, by_user, &req).await
 }
 
-// C_R_ DOI
-pub async fn doi_create(ctx: &Context, uid: String, req: DoiFetchRequest) -> Result<Value> {
-    store::doi_c(ctx, uid, req.folder, req.doi.replace("%2F", "/")).await
-}
-pub async fn doi_fetch(ctx: &Context, uid: String, req: DoiFetchRequest) -> Result<Value> {
-    store::doi_f(ctx, uid, req.folder, req.doi.replace("%2F", "/")).await
-}
-
+// // C_R_ DOI by fetch
+// pub async fn doi_create(ctx: &Context, req: &DoiRequest) -> Result<bool> {
+//     store::doi_c(ctx, req).await
+// }
+// pub async fn doi_fetch(ctx: &Context, req: DoiRequest) -> Result<Value> {
+//     store::doi_f(ctx, req).await
+// }
 
 // debug and data injection features
-pub async fn doi_print_text(ctx: &Context, uid: String, folder: String, doi: String) -> Result<String> {
-    store::doi_pt(ctx, uid, folder, doi).await
-}
-pub async fn doi_inject_2(ctx: &Context, uid: String, folder: String, data: Vec<u8>) -> Result<store::DoiNode> {
-    store::doi_ij_2(ctx, uid, folder, data).await
-}
+// pub async fn doi_print_text(ctx: &Context, req: DoiRequest) -> Result<String> {
+//     store::doi_pt(ctx, req, doi).await
+// }
+// pub async fn doi_inject_2(ctx: &Context, req: &DoiRequest, data: Vec<u8>) -> Result<store::DoiNode> {
+//     store::doi_ij_2(ctx, req, data).await
+// }
 pub async fn print_index(ctx: &Context, uid: String) -> Result<Vec<String>> {
     store::print_index(ctx, uid).await
 }

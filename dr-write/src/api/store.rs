@@ -3,6 +3,7 @@ use futures::{future};
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use anyhow::{anyhow, Result, Error};
+use doi_interface::{DoiRequest, DoiNode};
 
 // use wasmcloud_interface_blobstore::{Blobstore, BlobstoreSender, Chunk, PutObjectRequest};
 use wasmcloud_interface_keyvalue::{
@@ -11,33 +12,34 @@ use wasmcloud_interface_keyvalue::{
 // use wasmbus_rpc::common::Context;
 use wasmbus_rpc::actor::prelude::Context;
 use wasmcloud_interface_httpserver::{
-    HttpRequest, HttpResponse, HeaderMap
 };
 
 #[path = "./remote.rs"]
 mod remote;
+// #[path ="./galatic.rs"]
+// mod galatic;
 
-#[derive(Serialize, Deserialize)]
-pub struct Name {
-    suffix: Option<String>,
-    given: Option<String>,
-    family: Option<String>,
-    prefix: Option<String>,
-    name: Option<String>
-}
+// #[derive(Serialize, Deserialize)]
+// pub struct Name {
+//     suffix: Option<String>,
+//     given: Option<String>,
+//     family: Option<String>,
+//     prefix: Option<String>,
+//     name: Option<String>
+// }
 
-#[derive(Serialize, Deserialize)]
-pub struct Link {
-    url: String,
-    ctype: String,
-    cversion: String,
-    app: String
-}
+// #[derive(Serialize, Deserialize)]
+// pub struct Link {
+//     url: String,
+//     ctype: String,
+//     cversion: String,
+//     app: String
+// }
 
 #[derive(Serialize, Deserialize)]
 pub struct Folder {
     path: String,
-    owner: String,
+    team: String,
     title: String,
     #[serde(default)]
     nodes: HashMap<String, String>,
@@ -45,27 +47,29 @@ pub struct Folder {
     public: bool
 }
 
-#[derive(Serialize, Deserialize)]
-pub struct DoiNode {
-    folder: String,
-    doi: Option<String>,
-    publisher: Option<String>,
-    pub_year: Option<u16>,
-    pub_month: Option<u8>,
-    pub_day: Option<u8>,
-    pol_year: Option<u16>,
-    pol_month: Option<u8>,
-    pol_day: Option<u8>,
-    create_year: Option<u16>,
-    create_month: Option<u8>,
-    create_day: Option<u8>,
-    titles: Vec<String>,
-    summary: Option<String>,
-    typ: Option<String>, 
-    authors: Vec<Name>,
-    editors: Vec<Name>,
-    links:Vec<Link>,
-}
+// #[derive(Serialize, Deserialize)]
+// pub struct DoiNode {
+//     team: String,
+//     doi: String,
+//     folder: Option<String>,
+//     by_user: Option<String>,
+//     publisher: Option<String>,
+//     pub_year: Option<u16>,
+//     pub_month: Option<u8>,
+//     pub_day: Option<u8>,
+//     pol_year: Option<u16>,
+//     pol_month: Option<u8>,
+//     pol_day: Option<u8>,
+//     create_year: Option<u16>,
+//     create_month: Option<u8>,
+//     create_day: Option<u8>,
+//     titles: Vec<String>,
+//     summary: Option<String>,
+//     typ: Option<String>, 
+//     authors: Vec<Name>,
+//     editors: Vec<Name>,
+//     links:Vec<Link>,
+// }
 
 
 pub(crate) async fn new_uid(ctx: &Context, name: String, ts: u64) -> Result<String> {
@@ -187,7 +191,7 @@ pub(crate) async fn folders_c(ctx: &Context, uid: String, path: String, parent: 
 
     let f = Folder{
         path: fullpath,
-        owner: uid.clone(),
+        team: uid.clone(),
         title: title,
         public: public,
         nodes: HashMap::new()
@@ -278,7 +282,7 @@ pub(crate) async fn folders_r_a(ctx: &Context, uid: String) -> Result<HashMap<St
     
     for path in smap.keys() {
         let f: Folder = folders_r(ctx, uid.clone(), path.clone()).await?;
-        if f.owner.eq(&uid) {
+        if f.team.eq(&uid) {
             rmap.insert(f.path.clone(), f);
         }
         // result.push(folders_r(ctx, uid.clone(), path).await?)
@@ -372,600 +376,339 @@ async fn doi_to_folder(ctx: &Context, uid: String, path: String, doi: String) ->
     }
 }
 
-pub(crate) async fn doi_pt(ctx: &Context, uid: String, folder: String, doi: String) -> Result<String> {
+// pub(crate) async fn doi_pt(ctx: &Context, req: &DoiRequest) -> Result<String> {
+//     let rawid = get_raw_path(req)
+//     let rawid = format!("raw-{}::{}", req..clone(), doi.clone());
+//     let uqid = format!("doi-{}::{}", folder, doi);
+//     let (rawo, po) = future::join(
+//         KeyValueSender::new().get(ctx, &rawid),
+//         KeyValueSender::new().get(ctx, &uqid)
+//     ).await;
 
-    let rawid = format!("raw-{}::{}", folder.clone(), doi.clone());
-    let uqid = format!("doi-{}::{}", folder, doi);
-    let (rawo, po) = future::join(
-        KeyValueSender::new().get(ctx, &rawid),
-        KeyValueSender::new().get(ctx, &uqid)
-    ).await;
+//     match (rawo, po) {
+//         (Ok(r),_) => {
+//             let resp: Value = serde_json::from_str(&r.value)?;
+//             let dn = parse_crossref_value(resp, req);
 
-    match (rawo, po) {
-        (Ok(r),_) => {
-            let resp: Value = serde_json::from_str(&r.value)?;
-            let mut dn = DoiNode {
-                folder: folder,
-                doi: Some(doi),
-                publisher: resp["message"]["publisher"].as_str().map(|s| s.to_string()),
-                pub_year: None,
-                pub_month: None,
-                pub_day: None,
-                pol_year: None,
-                pol_month: None,
-                pol_day: None,
-                create_year: None,
-                create_month: None,
-                create_day: None,
-                titles: vec![],
-                summary: resp["message"]["abstract"].as_str().map(|s| s.to_string().replace("<jats:p>", "").replace("</jats:p>","")),
-                typ: resp["message"]["type"].as_str().map(|s| s.to_string()),
-                authors: vec![],
-                editors: vec![],
-                links: vec![]
-            };
-            if let Some(dp_y) = resp["message"]["published-print"]["date-parts"][0][0].as_u64() {
-                dn.pub_year = Some(dp_y as u16);
-        
-                if let Some(dp_m) = resp["message"]["published-print"]["date-parts"][0][1].as_u64() {
-                    dn.pub_month = Some(dp_m as u8);
-        
-                    if let Some(dp_d) = resp["message"]["published-print"]["date-parts"][0][2].as_u64() {
-                        dn.pub_day = Some(dp_d as u8);
-                    }
-                }
-            }
-        
-            if let Some(dp_y) = resp["message"]["published-online"]["date-parts"][0][0].as_u64() {
-                dn.pol_year = Some(dp_y as u16);
-        
-                if let Some(dp_m) = resp["message"]["published-online"]["date-parts"][0][1].as_u64() {
-                    dn.pol_month = Some(dp_m as u8);
-        
-                    if let Some(dp_d) = resp["message"]["published-online"]["date-parts"][0][2].as_u64() {
-                        dn.pol_day = Some(dp_d as u8);
-                    }
-                }
-            }
-        
-            if let Some(dp_y) = resp["message"]["created"]["date-parts"][0][0].as_u64() {
-                dn.create_year = Some(dp_y as u16);
-        
-                if let Some(dp_m) = resp["message"]["created"]["date-parts"][0][1].as_u64() {
-                    dn.create_month = Some(dp_m as u8);
-        
-                    if let Some(dp_d) = resp["message"]["created"]["date-parts"][0][2].as_u64() {
-                        dn.create_day = Some(dp_d as u8);
-                    }
-                }
-            }
-        
-            if let Some(ts) = resp["message"]["title"].as_array() {
-                dn.titles = ts.iter().filter_map(Value::as_str)
-                    .map(String::from)
-                    .collect();
-            }
-        // /rust treat ["link"] as type link, but they are strings as above
-            // if let Some(ts) = resp["message"]["link"].as_array() {
-            //     dn.links = ts.iter().filter_map(Value::as_str)
-            //         .map(String::from)
-            //         .collect();
-            // }
-            if let Some(ts) = resp["message"]["author"].as_array() {
-                for n in ts {
-                    let mut nm = Name{
-                        // affiliations: vec![],
-                        suffix: None,
-                        given: None,
-                        family: None,
-                        prefix: None,
-                        name: None,
-                    };
-                    if let Some(s) = n.get("suffix") {
-                        if let Some(t) = s.as_str() {
-                            nm.suffix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("given") {
-                        if let Some(t) = s.as_str() {
-                            nm.given = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("family") {
-                        if let Some(t) = s.as_str() {
-                            nm.family = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("prefix") {
-                        if let Some(t) = s.as_str() {
-                            nm.prefix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("name") {
-                        if let Some(t) = s.as_str() {
-                            nm.name = Some(t.to_string());
-                        }
-                    }
-                    dn.authors.push(nm);
-                };
-            }
-        
-            if let Some(ts) = resp["message"]["editor"].as_array() {
-                for n in ts {
-                    let mut nm = Name{
-                        // affiliations: vec![],
-                        suffix: None,
-                        given: None,
-                        family: None,
-                        prefix: None,
-                        name: None,
-                    };
-                    if let Some(s) = n.get("suffix") {
-                        if let Some(t) = s.as_str() {
-                            nm.suffix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("given") {
-                        if let Some(t) = s.as_str() {
-                            nm.given = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("family") {
-                        if let Some(t) = s.as_str() {
-                            nm.family = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("prefix") {
-                        if let Some(t) = s.as_str() {
-                            nm.prefix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("name") {
-                        if let Some(t) = s.as_str() {
-                            nm.name = Some(t.to_string());
-                        }
-                    }
-                    dn.editors.push(nm)
-                }
-            }
+//             KeyValueSender::new()
+//             .set(
+//                 ctx,
+//                 &SetRequest {
+//                     key: uqid.to_string(),
+//                     value: serde_json::to_string(&dn)?,
+//                     expires: 0,
+//                 },
+//             )
+//             .await
+//             .map_err(|e| anyhow!(e))?;
 
-            KeyValueSender::new()
-            .set(
-                ctx,
-                &SetRequest {
-                    key: uqid.to_string(),
-                    value: serde_json::to_string(&dn)?,
-                    expires: 0,
-                },
-            )
-            .await
-            .map_err(|e| anyhow!(e))?;
+//             Ok(serde_json::to_string(&dn)?)
+//         },
+//         (_, Ok(v)) => Ok(v.value.to_string() + " - from cache data"),
+//         (Err(e), _) | (_, Err(e)) => Err(anyhow!(e))
+//     }       
+// }
 
-            Ok(serde_json::to_string(&dn)?)
-        },
-        (_, Ok(v)) => Ok(v.value.to_string() + " - from cache data"),
-        (Err(e), _) | (_, Err(e)) => Err(anyhow!(e))
-    }       
+// only read prased records
+pub(crate) async fn doi_r(ctx: &Context, uid: String, doi: String) -> Result<String> {
+    let uqid = _get_doi_path(uid, doi);
+    
+    match KeyValueSender::new().get(ctx, &uqid).await {
+        Ok(v) => Ok(v.value),
+        Err(e) => Err(anyhow!(e))
+    }
 }
 
-pub(crate) async fn doi_r_p(ctx: &Context, folder: String, doi: String) -> Result<DoiNode> {
-    
-    let rawid = format!("raw-{}::{}", folder.clone(), doi.clone());
-    let uqid = format!("doi-{}::{}", folder, doi);
-    let (rawo, po) = future::join(
-        KeyValueSender::new().get(ctx, &rawid),
-        KeyValueSender::new().get(ctx, &uqid)
-    ).await;
+fn _get_raw_path(team_uid: String, doi: String) -> String {
+    return format!("cache-{}", doi)
+}
+fn get_raw_path(req: &DoiRequest) -> String {
+    return _get_raw_path(req.uid.clone(), req.doi.clone())
+}
 
-    match (rawo, po) {
-        (_, Ok(v)) => Ok(serde_json::from_str(&v.value)?),
-        (Ok(r),_) => {
-            let resp: Value = serde_json::from_str(&r.value)?;
-            let mut dn = DoiNode {
-                // id: uqid,
-                folder: folder,
-                doi: Some(doi),
-                // date_year: None,
-                // date_month: None,
-                // date_day: None,
-                publisher: resp["message"]["publisher"].as_str().map(|s| s.to_string()),
-                pub_year: None,
-                pub_month: None,
-                pub_day: None,
-                pol_year: None,
-                pol_month: None,
-                pol_day: None,
-                create_year: None,
-                create_month: None,
-                create_day: None,
-                titles: vec![],
-                summary: resp["message"]["abstract"].as_str().map(|s| s.to_string().replace("<jats:p>", "").replace("</jats:p>","")),
-                typ: resp["message"]["type"].as_str().map(|s| s.to_string()),
-                authors: vec![],
-                editors: vec![],
-                links: vec![]
+fn _get_doi_path(team_uid: String, doi: String) -> String {
+    return format!("doi-{}-{}", team_uid, doi)
+}
+fn get_doi_path(req: &DoiRequest) -> String {
+    return _get_doi_path(req.uid.clone(), req.doi.clone())
+}
+
+// fn get_doi_node_path(req: &Value) -> String {
+
+//     return _get_doi_path(req["team"].as_str().unwrap(), req["doi"].as_str().unwrap())
+// }
+/*
+fn parse_crossref_value(resp: Value, req: &DoiRequest) -> DoiNode {
+    let mut dn = DoiNode {
+        team: req.uid.clone(),
+        doi: req.doi.clone(),
+        by_user: req.user.clone(),
+        folder: Some(req.folder.clone()),
+        publisher: resp["message"]["publisher"].as_str().map(|s| s.to_string()),
+        pub_year: None,
+        pub_month: None,
+        pub_day: None,
+        pol_year: None,
+        pol_month: None,
+        pol_day: None,
+        create_year: None,
+        create_month: None,
+        create_day: None,
+        titles: vec![],
+        summary: resp["message"]["abstract"].as_str().map(|s| s.to_string().replace("<jats:p>", "").replace("</jats:p>","")),
+        typ: resp["message"]["type"].as_str().map(|s| s.to_string()),
+        authors: vec![],
+        editors: vec![],
+        links: vec![]
+    };
+    if let Some(dp_y) = resp["message"]["published-print"]["date-parts"][0][0].as_u64() {
+        dn.pub_year = Some(dp_y as u16);
+
+        if let Some(dp_m) = resp["message"]["published-print"]["date-parts"][0][1].as_u64() {
+            dn.pub_month = Some(dp_m as u8);
+
+            if let Some(dp_d) = resp["message"]["published-print"]["date-parts"][0][2].as_u64() {
+                dn.pub_day = Some(dp_d as u8);
+            }
+        }
+    }
+
+    if let Some(dp_y) = resp["message"]["published-online"]["date-parts"][0][0].as_u64() {
+        dn.pol_year = Some(dp_y as u16);
+
+        if let Some(dp_m) = resp["message"]["published-online"]["date-parts"][0][1].as_u64() {
+            dn.pol_month = Some(dp_m as u8);
+
+            if let Some(dp_d) = resp["message"]["published-online"]["date-parts"][0][2].as_u64() {
+                dn.pol_day = Some(dp_d as u8);
+            }
+        }
+    }
+
+    if let Some(dp_y) = resp["message"]["created"]["date-parts"][0][0].as_u64() {
+        dn.create_year = Some(dp_y as u16);
+
+        if let Some(dp_m) = resp["message"]["created"]["date-parts"][0][1].as_u64() {
+            dn.create_month = Some(dp_m as u8);
+
+            if let Some(dp_d) = resp["message"]["created"]["date-parts"][0][2].as_u64() {
+                dn.create_day = Some(dp_d as u8);
+            }
+        }
+    }
+
+    if let Some(ts) = resp["message"]["title"].as_array() {
+        dn.titles = ts.iter().filter_map(Value::as_str)
+            .map(String::from)
+            .collect();
+    }
+// /rust treat ["link"] as type link, but they are strings as above
+    // if let Some(ts) = resp["message"]["link"].as_array() {
+    //     dn.links = ts.iter().filter_map(Value::as_str)
+    //         .map(String::from)
+    //         .collect();
+    // }
+    if let Some(ts) = resp["message"]["author"].as_array() {
+        for n in ts {
+            let mut nm = Name{
+                // affiliations: vec![],
+                suffix: None,
+                given: None,
+                family: None,
+                prefix: None,
+                name: None,
             };
-            if let Some(dp_y) = resp["message"]["published-print"]["date-parts"][0][0].as_u64() {
-                dn.pub_year = Some(dp_y as u16);
-        
-                if let Some(dp_m) = resp["message"]["published-print"]["date-parts"][0][1].as_u64() {
-                    dn.pub_month = Some(dp_m as u8);
-        
-                    if let Some(dp_d) = resp["message"]["published-print"]["date-parts"][0][2].as_u64() {
-                        dn.pub_day = Some(dp_d as u8);
-                    }
+            if let Some(s) = n.get("suffix") {
+                if let Some(t) = s.as_str() {
+                    nm.suffix = Some(t.to_string());
                 }
             }
-        
-            if let Some(dp_y) = resp["message"]["published-online"]["date-parts"][0][0].as_u64() {
-                dn.pol_year = Some(dp_y as u16);
-        
-                if let Some(dp_m) = resp["message"]["published-online"]["date-parts"][0][1].as_u64() {
-                    dn.pol_month = Some(dp_m as u8);
-        
-                    if let Some(dp_d) = resp["message"]["published-online"]["date-parts"][0][2].as_u64() {
-                        dn.pol_day = Some(dp_d as u8);
-                    }
+            if let Some(s) = n.get("given") {
+                if let Some(t) = s.as_str() {
+                    nm.given = Some(t.to_string());
                 }
             }
-        
-            if let Some(dp_y) = resp["message"]["created"]["date-parts"][0][0].as_u64() {
-                dn.create_year = Some(dp_y as u16);
-        
-                if let Some(dp_m) = resp["message"]["created"]["date-parts"][0][1].as_u64() {
-                    dn.create_month = Some(dp_m as u8);
-        
-                    if let Some(dp_d) = resp["message"]["created"]["date-parts"][0][2].as_u64() {
-                        dn.create_day = Some(dp_d as u8);
-                    }
+            if let Some(s) = n.get("family") {
+                if let Some(t) = s.as_str() {
+                    nm.family = Some(t.to_string());
                 }
             }
-        
-            if let Some(ts) = resp["message"]["title"].as_array() {
-                dn.titles = ts.iter().filter_map(Value::as_str)
-                    .map(String::from)
-                    .collect();
-            }
-        // /rust treat ["link"] as type link, but they are strings as above
-            // if let Some(ts) = resp["message"]["link"].as_array() {
-            //     dn.links = ts.iter().filter_map(Value::as_str)
-            //         .map(String::from)
-            //         .collect();
-            // }
-            if let Some(ts) = resp["message"]["author"].as_array() {
-                for n in ts {
-                    let mut nm = Name{
-                        // affiliations: vec![],
-                        suffix: None,
-                        given: None,
-                        family: None,
-                        prefix: None,
-                        name: None,
-                    };
-                    if let Some(s) = n.get("suffix") {
-                        if let Some(t) = s.as_str() {
-                            nm.suffix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("given") {
-                        if let Some(t) = s.as_str() {
-                            nm.given = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("family") {
-                        if let Some(t) = s.as_str() {
-                            nm.family = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("prefix") {
-                        if let Some(t) = s.as_str() {
-                            nm.prefix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("name") {
-                        if let Some(t) = s.as_str() {
-                            nm.name = Some(t.to_string());
-                        }
-                    }
-                    dn.authors.push(nm);
-                };
-            }
-        
-            if let Some(ts) = resp["message"]["editor"].as_array() {
-                for n in ts {
-                    let mut nm = Name{
-                        // affiliations: vec![],
-                        suffix: None,
-                        given: None,
-                        family: None,
-                        prefix: None,
-                        name: None,
-                    };
-                    if let Some(s) = n.get("suffix") {
-                        if let Some(t) = s.as_str() {
-                            nm.suffix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("given") {
-                        if let Some(t) = s.as_str() {
-                            nm.given = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("family") {
-                        if let Some(t) = s.as_str() {
-                            nm.family = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("prefix") {
-                        if let Some(t) = s.as_str() {
-                            nm.prefix = Some(t.to_string());
-                        }
-                    }
-                    if let Some(s) = n.get("name") {
-                        if let Some(t) = s.as_str() {
-                            nm.name = Some(t.to_string());
-                        }
-                    }
-                    dn.editors.push(nm)
+            if let Some(s) = n.get("prefix") {
+                if let Some(t) = s.as_str() {
+                    nm.prefix = Some(t.to_string());
                 }
             }
+            if let Some(s) = n.get("name") {
+                if let Some(t) = s.as_str() {
+                    nm.name = Some(t.to_string());
+                }
+            }
+            dn.authors.push(nm);
+        };
+    }
 
+    if let Some(ts) = resp["message"]["editor"].as_array() {
+        for n in ts {
+            let mut nm = Name{
+                // affiliations: vec![],
+                suffix: None,
+                given: None,
+                family: None,
+                prefix: None,
+                name: None,
+            };
+            if let Some(s) = n.get("suffix") {
+                if let Some(t) = s.as_str() {
+                    nm.suffix = Some(t.to_string());
+                }
+            }
+            if let Some(s) = n.get("given") {
+                if let Some(t) = s.as_str() {
+                    nm.given = Some(t.to_string());
+                }
+            }
+            if let Some(s) = n.get("family") {
+                if let Some(t) = s.as_str() {
+                    nm.family = Some(t.to_string());
+                }
+            }
+            if let Some(s) = n.get("prefix") {
+                if let Some(t) = s.as_str() {
+                    nm.prefix = Some(t.to_string());
+                }
+            }
+            if let Some(s) = n.get("name") {
+                if let Some(t) = s.as_str() {
+                    nm.name = Some(t.to_string());
+                }
+            }
+            dn.editors.push(nm)
+        }
+    }
+    dn
+}*/
+
+// inject as last resort
+// pub(crate) async fn doi_ij_2(ctx: &Context, req: &DoiRequest, data: Vec<u8>) -> Result<DoiNode> {
+//     let resp = serde_json::from_slice::<Value>(&data).map_err(|e| anyhow!(e))?;
+//     if let Some(doi_str) = resp["message"]["DOI"].as_str() {
+//         let doi = doi_str.to_string();
+//         let rawid = format!("raw-{}::{}", folder.clone(), doi.clone());
+//         let uqid = format!("doi-{}::{}", folder.clone(), doi.clone());
+
+//         KeyValueSender::new()
+//         .set(
+//             ctx,
+//             &SetRequest {
+//                 key: rawid.to_string(),
+//                 value: serde_json::to_string(&resp)?,
+//                 expires: 0,
+//             },
+//         )
+//         .await
+//         .map_err(|e| anyhow!(e))?; 
+
+//         let dn = parse_crossref_value(resp, req);
+
+//         KeyValueSender::new()
+//         .set(
+//             ctx,
+//             &SetRequest {
+//                 key: uqid.to_string(),
+//                 value: serde_json::to_string(&dn)?,
+//                 expires: 0,
+//             },
+//         )
+//         .await
+//         .map_err(|e| anyhow!(e))?; 
+
+//         Ok(dn)
+//     } else {
+//         Err(anyhow!("invalid input"))
+//     }
+// }
+
+
+// pub(crate) async fn doi_f(ctx: &Context, uid: String, folder: String, doi: String) -> Result<Value> {
+
+//     let uqid = format!("raw-{}::{}", folder.clone(), doi.clone());//.to_string()
+
+//     let fo = remote::doi_fetch(ctx, doi.clone()).await;
+
+//     match remote::doi_fetch(ctx, doi.clone()).await {
+//         Ok(resp) => {
+//             KeyValueSender::new()
+//                 .set(
+//                     ctx,
+//                     &SetRequest {
+//                         key: uqid.to_string(),
+//                         value: serde_json::to_string(&resp)?,
+//                         expires: 0,
+//                     },
+//                 )
+//                 .await
+//                 .map_err(|e| anyhow!(e))?; 
+//             Ok(resp)
+//         },
+//         Err(e) => Err(e)
+//     }
+// }
+
+pub(crate) async fn doi_c(ctx: &Context, team: String, by_user: Option<String>, req: &Value) -> Result<String> {
+
+    match req["folder"].as_str() {
+        Some(folder) => {
+            let doi = req["DOI"].as_str().unwrap_or("no doi");
+
+            let doi_id = _get_doi_path(team.to_string(), doi.to_string());
+        
+            let s = serde_json::to_string(&req).map_err(|e| anyhow!(e))?;
+        
+            // *req[""]
             KeyValueSender::new()
             .set(
                 ctx,
                 &SetRequest {
-                    key: uqid.to_string(),
-                    value: serde_json::to_string(&dn)?,
+                    key: doi_id.clone(),
+                    value: s.to_string(),
                     expires: 0,
                 },
             )
             .await
             .map_err(|e| anyhow!(e))?; 
-
-            Ok(dn)
+        
+            // doi_to_folder(ctx, team.to_string(), folder.to_string(), doi.to_string()).await;
+        
+            Ok(doi_id)
         },
-        (Err(e), _) | (_, Err(e)) => Err(anyhow!(e))
+        None => Ok("".to_string())
     }
-}
-
-pub(crate) async fn doi_ij_2(ctx: &Context, uid: String, folder: String, data: Vec<u8>) -> Result<DoiNode> {
-    let resp = serde_json::from_slice::<Value>(&data).map_err(|e| anyhow!(e))?;
-    if let Some(doi_str) = resp["message"]["DOI"].as_str() {
-        let doi = doi_str.to_string();
-        let rawid = format!("raw-{}::{}", folder.clone(), doi.clone());
-        let uqid = format!("doi-{}::{}", folder.clone(), doi.clone());
-
-        KeyValueSender::new()
-        .set(
-            ctx,
-            &SetRequest {
-                key: rawid.to_string(),
-                value: serde_json::to_string(&resp)?,
-                expires: 0,
-            },
-        )
-        .await
-        .map_err(|e| anyhow!(e))?; 
-
-        let mut dn = DoiNode {
-            // id: uqid,
-            folder: folder,
-            doi: Some(doi),
-            // date_year: None,
-            // date_month: None,
-            // date_day: None,
-            publisher: resp["message"]["publisher"].as_str().map(|s| s.to_string()),
-            pub_year: None,
-            pub_month: None,
-            pub_day: None,
-            pol_year: None,
-            pol_month: None,
-            pol_day: None,
-            create_year: None,
-            create_month: None,
-            create_day: None,
-            titles: vec![],
-            summary: resp["message"]["abstract"].as_str().map(|s| s.to_string().replace("<jats:p>", "").replace("</jats:p>","")),
-            typ: resp["message"]["type"].as_str().map(|s| s.to_string()),
-            authors: vec![],
-            editors: vec![],
-            links: vec![]
-        };
-        if let Some(dp_y) = resp["message"]["published-print"]["date-parts"][0][0].as_u64() {
-            dn.pub_year = Some(dp_y as u16);
     
-            if let Some(dp_m) = resp["message"]["published-print"]["date-parts"][0][1].as_u64() {
-                dn.pub_month = Some(dp_m as u8);
-    
-                if let Some(dp_d) = resp["message"]["published-print"]["date-parts"][0][2].as_u64() {
-                    dn.pub_day = Some(dp_d as u8);
-                }
-            }
-        }
-    
-        if let Some(dp_y) = resp["message"]["published-online"]["date-parts"][0][0].as_u64() {
-            dn.pol_year = Some(dp_y as u16);
-    
-            if let Some(dp_m) = resp["message"]["published-online"]["date-parts"][0][1].as_u64() {
-                dn.pol_month = Some(dp_m as u8);
-    
-                if let Some(dp_d) = resp["message"]["published-online"]["date-parts"][0][2].as_u64() {
-                    dn.pol_day = Some(dp_d as u8);
-                }
-            }
-        }
-    
-        if let Some(dp_y) = resp["message"]["created"]["date-parts"][0][0].as_u64() {
-            dn.create_year = Some(dp_y as u16);
-    
-            if let Some(dp_m) = resp["message"]["created"]["date-parts"][0][1].as_u64() {
-                dn.create_month = Some(dp_m as u8);
-    
-                if let Some(dp_d) = resp["message"]["created"]["date-parts"][0][2].as_u64() {
-                    dn.create_day = Some(dp_d as u8);
-                }
-            }
-        }
-    
-        if let Some(ts) = resp["message"]["title"].as_array() {
-            dn.titles = ts.iter().filter_map(Value::as_str)
-                .map(String::from)
-                .collect();
-        }
-    // /rust treat ["link"] as type link, but they are strings as above
-        // if let Some(ts) = resp["message"]["link"].as_array() {
-        //     dn.links = ts.iter().filter_map(Value::as_str)
-        //         .map(String::from)
-        //         .collect();
-        // }
-        if let Some(ts) = resp["message"]["author"].as_array() {
-            for n in ts {
-                let mut nm = Name{
-                    // affiliations: vec![],
-                    suffix: None,
-                    given: None,
-                    family: None,
-                    prefix: None,
-                    name: None,
-                };
-                if let Some(s) = n.get("suffix") {
-                    if let Some(t) = s.as_str() {
-                        nm.suffix = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("given") {
-                    if let Some(t) = s.as_str() {
-                        nm.given = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("family") {
-                    if let Some(t) = s.as_str() {
-                        nm.family = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("prefix") {
-                    if let Some(t) = s.as_str() {
-                        nm.prefix = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("name") {
-                    if let Some(t) = s.as_str() {
-                        nm.name = Some(t.to_string());
-                    }
-                }
-                dn.authors.push(nm);
-            };
-        }
-    
-        if let Some(ts) = resp["message"]["editor"].as_array() {
-            for n in ts {
-                let mut nm = Name{
-                    // affiliations: vec![],
-                    suffix: None,
-                    given: None,
-                    family: None,
-                    prefix: None,
-                    name: None,
-                };
-                if let Some(s) = n.get("suffix") {
-                    if let Some(t) = s.as_str() {
-                        nm.suffix = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("given") {
-                    if let Some(t) = s.as_str() {
-                        nm.given = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("family") {
-                    if let Some(t) = s.as_str() {
-                        nm.family = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("prefix") {
-                    if let Some(t) = s.as_str() {
-                        nm.prefix = Some(t.to_string());
-                    }
-                }
-                if let Some(s) = n.get("name") {
-                    if let Some(t) = s.as_str() {
-                        nm.name = Some(t.to_string());
-                    }
-                }
-                dn.editors.push(nm)
-            }
-        }
 
-        KeyValueSender::new()
-        .set(
-            ctx,
-            &SetRequest {
-                key: uqid.to_string(),
-                value: serde_json::to_string(&dn)?,
-                expires: 0,
-            },
-        )
-        .await
-        .map_err(|e| anyhow!(e))?; 
+    // req.
+    // let (kvo, fo) = future::join(
+    //     doi_to_folder(ctx, req.uid.clone(), req.folder.clone(), req.doi.clone()),
+    //     remote::doi_fetch(ctx, req.uid.clone(), req.doi.clone())
+    // ).await;
 
-        Ok(dn)
-    } else {
-        Err(anyhow!("invalid input"))
-    }
-}
-
-
-pub(crate) async fn doi_f(ctx: &Context, uid: String, folder: String, doi: String) -> Result<Value> {
-
-    let uqid = format!("raw-{}::{}", folder.clone(), doi.clone());//.to_string()
-
-    let fo = remote::doi_fetch(ctx, doi.clone()).await;
-
-    match remote::doi_fetch(ctx, doi.clone()).await {
-        Ok(resp) => {
-            KeyValueSender::new()
-                .set(
-                    ctx,
-                    &SetRequest {
-                        key: uqid.to_string(),
-                        value: serde_json::to_string(&resp)?,
-                        expires: 0,
-                    },
-                )
-                .await
-                .map_err(|e| anyhow!(e))?; 
-            Ok(resp)
-        },
-        Err(e) => Err(e)
-    }
-}
-
-pub(crate) async fn doi_c(ctx: &Context, uid: String, folder: String, doi: String) -> Result<Value> {
-
-    let uqid = format!("raw-{}::{}", folder.clone(), doi.clone());//.to_string()
-
-    let (kvo, fo) = future::join(
-        doi_to_folder(ctx, uid, folder.clone(), doi.clone()),
-        remote::doi_fetch(ctx, doi.clone())
-    ).await;
-
-    match (kvo, fo) {
-        (Ok(_), Ok(resp)) => {
-            KeyValueSender::new()
-                .set(
-                    ctx,
-                    &SetRequest {
-                        key: uqid.to_string(),
-                        value: serde_json::to_string(&resp)?,
-                        expires: 0,
-                    },
-                )
-                .await
-                .map_err(|e| anyhow!(e))?; 
-            Ok(resp)
-        },
-        (Err(e), _) | (_, Err(e)) => {
-            Err(e)
-        }
-    }
+    // match (kvo, fo) {
+    //     (Ok(_), Ok(r)) => {
+    //         let raw_id = get_raw_path(&req);
+    //         KeyValueSender::new()
+    //             .set(
+    //                 ctx,
+    //                 &SetRequest {
+    //                     key: raw_id,
+    //                     value: String::from_utf8_lossy(&r).to_string(),
+    //                     expires: 0,
+    //                 },
+    //             )
+    //             .await
+    //             .map_err(|e| anyhow!(e))?; 
+    //         Ok(true)
+    //     },
+    //     (Err(e), _) | (_, Err(e)) => {
+    //         Err(e)
+    //     }
+    // }
 }

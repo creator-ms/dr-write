@@ -351,3 +351,9 @@ body {
   flex-basis: 100%;
   width: 100%;
 } */
+
+.float-abs-right {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}

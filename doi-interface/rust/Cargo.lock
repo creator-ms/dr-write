@@ -396,16 +396,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9d6f2aa4d0537bcc1c74df8755072bd31c1ef1a3a1b85a68e8404a8c353b7b8b"
 
 [[package]]
-name = "cookie"
-version = "0.17.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7efb37c3e1ccb1ff97164ad95ac1606e8ccd35b3fa0a7d99a304c7f4a428cc24"
-dependencies = [
- "time",
- "version_check",
-]
-
-[[package]]
 name = "core-foundation"
 version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -528,6 +518,7 @@ name = "doi-interface"
 version = "0.0.2"
 dependencies = [
  "async-trait",
+ "base64 0.21.0",
  "futures",
  "serde",
  "serde_bytes",
@@ -547,29 +538,6 @@ dependencies = [
  "reqwest",
  "thiserror",
  "tokio",
-]
-
-[[package]]
-name = "dr-write"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "cookie",
- "doi-interface",
- "form_urlencoded",
- "futures",
- "mime_guess",
- "rand_chacha",
- "rust-embed",
- "serde",
- "serde_bytes",
- "serde_derive",
- "serde_json",
- "wasmbus-rpc",
- "wasmcloud-interface-httpclient",
- "wasmcloud-interface-httpserver",
- "wasmcloud-interface-keyvalue",
- "wasmcloud-interface-messaging",
 ]
 
 [[package]]
@@ -1088,16 +1056,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
 
 [[package]]
-name = "mime_guess"
-version = "2.0.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4192263c238a5f0d0c6bfd21f336a313a4ce1c450542449ca191bb657b4642ef"
-dependencies = [
- "mime",
- "unicase",
-]
-
-[[package]]
 name = "minicbor"
 version = "0.11.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1614,40 +1572,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "rust-embed"
-version = "6.6.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1b68543d5527e158213414a92832d2aab11a84d2571a5eb021ebe22c43aab066"
-dependencies = [
- "rust-embed-impl",
- "rust-embed-utils",
- "walkdir",
-]
-
-[[package]]
-name = "rust-embed-impl"
-version = "6.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d4e0f0ced47ded9a68374ac145edd65a6c1fa13a96447b873660b2a568a0fd7"
-dependencies = [
- "proc-macro2",
- "quote",
- "rust-embed-utils",
- "syn 1.0.109",
- "walkdir",
-]
-
-[[package]]
-name = "rust-embed-utils"
-version = "7.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "512b0ab6853f7e14e3c8754acb43d6f748bb9ced66aa5915a6553ac8213f7731"
-dependencies = [
- "sha2 0.10.6",
- "walkdir",
-]
-
-[[package]]
 name = "rustc-demangle"
 version = "0.1.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1733,15 +1657,6 @@ name = "ryu"
 version = "1.0.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f91339c0467de62360649f8d3e185ca8de4224ff281f66000de5eb2a77a79041"
-
-[[package]]
-name = "same-file"
-version = "1.0.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "93fc1dc3aaa9bfed95e02e6eadabb4baf7e3078b0bd1b4d7b6b0b68378900502"
-dependencies = [
- "winapi-util",
-]
 
 [[package]]
 name = "schannel"
@@ -2326,15 +2241,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9e79c4d996edb816c91e4308506774452e55e95c3c9de07b6729e17e15a5ef81"
 
 [[package]]
-name = "unicase"
-version = "2.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50f37be617794602aabbeee0be4f259dc1778fabe05e2d67ee8f79326d5cb4f6"
-dependencies = [
- "version_check",
-]
-
-[[package]]
 name = "unicode-bidi"
 version = "0.3.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2405,16 +2311,6 @@ name = "version_check"
 version = "0.9.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
-
-[[package]]
-name = "walkdir"
-version = "2.3.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "36df944cda56c7d8d8b7496af378e6b16de9284591917d307c9b4d313c44e698"
-dependencies = [
- "same-file",
- "winapi-util",
-]
 
 [[package]]
 name = "want"
@@ -2565,65 +2461,6 @@ dependencies = [
  "uuid",
  "wascap",
  "wasmbus-macros",
- "weld-codegen",
-]
-
-[[package]]
-name = "wasmcloud-interface-httpclient"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d7f2b52fd05280bc83a2411bd42391cabd4ab20a63850f4a3d64055fd71da985"
-dependencies = [
- "async-trait",
- "futures",
- "serde",
- "serde_bytes",
- "serde_json",
- "wasmbus-rpc",
- "weld-codegen",
-]
-
-[[package]]
-name = "wasmcloud-interface-httpserver"
-version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ab9d96cd17d32dd3d3fb14f05a69ce4ac62c52d13c68903d2dc8cefd2d906bce"
-dependencies = [
- "async-trait",
- "serde",
- "serde_bytes",
- "serde_json",
- "wasmbus-rpc",
- "weld-codegen",
-]
-
-[[package]]
-name = "wasmcloud-interface-keyvalue"
-version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c6d8ef02d466625e5879b49ffa568d94a5ea4b64b929fb363209ee4c30a2edcb"
-dependencies = [
- "async-trait",
- "log",
- "serde",
- "serde_bytes",
- "serde_json",
- "wasmbus-rpc",
- "weld-codegen",
-]
-
-[[package]]
-name = "wasmcloud-interface-messaging"
-version = "0.9.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7bbf5dc545c23ecfe39c2a02e42769e153a52db23fcc3cd77d4527eba452a0c9"
-dependencies = [
- "async-trait",
- "log",
- "serde",
- "serde_bytes",
- "serde_json",
- "wasmbus-rpc",
  "weld-codegen",
 ]
 
