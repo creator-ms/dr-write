@@ -1,0 +1,853 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2023,
+          1,
+          22
+        ]
+      ],
+      "date-time": "2023-01-22T05:46:02Z",
+      "timestamp": 1674366362649
+    },
+    "reference-count": 47,
+    "publisher": "Elsevier BV",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2022-07-01T00:00:00Z",
+          "timestamp": 1656633600000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2022-07-01T00:00:00Z",
+          "timestamp": 1656633600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-017"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2022-07-01T00:00:00Z",
+          "timestamp": 1656633600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2022-07-01T00:00:00Z",
+          "timestamp": 1656633600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-012"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2022-07-01T00:00:00Z",
+          "timestamp": 1656633600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              7,
+              1
+            ]
+          ],
+          "date-time": "2022-07-01T00:00:00Z",
+          "timestamp": 1656633600000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-004"
+      }
+    ],
+    "funder": [
+      {
+        "DOI": "10.13039/501100012166",
+        "name": "National Key Research and Development Program of China",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "2018YFA0703300"
+        ]
+      },
+      {
+        "DOI": "10.13039/501100012659",
+        "name": "Foundation for Innovative Research Groups of the National Natural Science Foundation of China",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "52021003"
+        ]
+      },
+      {
+        "DOI": "10.13039/501100013061",
+        "name": "Jilin Scientific and Technological Development Program",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "20190302021GX"
+        ]
+      },
+      {
+        "DOI": "10.13039/501100002858",
+        "name": "China Postdoctoral Science Foundation",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "2021M691205",
+          "2021TQ0121"
+        ]
+      },
+      {
+        "DOI": "10.13039/501100001809",
+        "name": "National Natural Science Foundation of China",
+        "doi-asserted-by": "publisher",
+        "award": [
+          "51835006",
+          "51975247",
+          "52022036",
+          "52105301"
+        ]
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "elsevier.com",
+        "sciencedirect.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Composites Science and Technology"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2022,
+          7
+        ]
+      ]
+    },
+    "DOI": "10.1016/j.compscitech.2022.109542",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2022,
+          5,
+          23
+        ]
+      ],
+      "date-time": "2022-05-23T15:29:45Z",
+      "timestamp": 1653319785000
+    },
+    "page": "109542",
+    "update-policy": "http://dx.doi.org/10.1016/elsevier_cm_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 0,
+    "title": [
+      "Research on the mechanical and water-repellent properties of bionic carbon fiber reinforced plastic composites inspired by coelacanth scale and lotus leaf"
+    ],
+    "prefix": "10.1016",
+    "volume": "226",
+    "author": [
+      {
+        "given": "Mingdi",
+        "family": "Shi",
+        "sequence": "first",
+        "affiliation": []
+      },
+      {
+        "given": "Zhiwu",
+        "family": "Han",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "ORCID": "http://orcid.org/0000-0002-6229-8637",
+        "authenticated-orcid": false,
+        "given": "Qigang",
+        "family": "Han",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "ORCID": "http://orcid.org/0000-0002-4839-3224",
+        "authenticated-orcid": false,
+        "given": "Bo",
+        "family": "Li",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "given": "Luquan",
+        "family": "Ren",
+        "sequence": "additional",
+        "affiliation": []
+      }
+    ],
+    "member": "78",
+    "reference": [
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib1",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.108664",
+        "article-title": "Micro-mechanics modeling of compressive strength and elastic modulus enhancements in unidirectional CFRP with aramid pulp micro/nano-fiber interlays",
+        "volume": "206",
+        "author": "Jiang",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib2",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.108923",
+        "article-title": "Mechanical properties of a novel Tri-directional carbon-flax-aramid fiber reinforced composite",
+        "volume": "213",
+        "author": "Yuan",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib3",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.108741",
+        "article-title": "Fracture behavior of 3D printed carbon fiber-reinforced polymer composites",
+        "volume": "208",
+        "author": "Yavas",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib4",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compstruct.2021.113816",
+        "article-title": "Behavior of cracked steel plates strengthened with adhesively bonded CFRP laminates under fatigue loading: experimental and analytical study",
+        "volume": "266",
+        "author": "Doroudi",
+        "year": "2021",
+        "journal-title": "Compos. Struct."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib5",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.108961",
+        "article-title": "Modelling damage evolution of carbon fiber-reinforced epoxy polymer composites in seawater sea sand concrete environment",
+        "volume": "215",
+        "author": "Zhao",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib6",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compstruct.2022.115232",
+        "article-title": "Carbon fiber reinforced polymer in drilling: from damage mechanisms to suppression",
+        "volume": "286",
+        "author": "Gao",
+        "year": "2022",
+        "journal-title": "Compos. Struct."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib7",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compstruct.2022.115206",
+        "article-title": "Three-point bending behaviors of the foam-filled CFRP X-core sandwich panel: experimental investigation and analytical modelling",
+        "volume": "284",
+        "author": "Mei",
+        "year": "2022",
+        "journal-title": "Compos. Struct."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib8",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2020.108560",
+        "article-title": "An integrated computational materials engineering framework to analyze the failure behaviors of carbon fiber reinforced polymer composites for lightweight vehicle applications",
+        "volume": "202",
+        "author": "Sun",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib9",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compositesb.2021.109182",
+        "article-title": "Bio-inspired patterned adhesive single-lap joints for CFRP and titanium",
+        "volume": "224",
+        "author": "Kaiser",
+        "year": "2021",
+        "journal-title": "Compos. B Eng."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib10",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.109180",
+        "article-title": "CFRP-patching enhancement on open-hole CFRP panel with micro/nanofillers-modified adhesive interface: experimental and numerical simulation",
+        "volume": "218",
+        "author": "Jiang",
+        "year": "2022",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib11",
+        "doi-asserted-by": "crossref",
+        "first-page": "726",
+        "DOI": "10.1016/j.conbuildmat.2018.02.085",
+        "article-title": "Effective bond length of CFRP sheets externally bonded to concrete beams under marine environment",
+        "volume": "167",
+        "author": "Fazli",
+        "year": "2018",
+        "journal-title": "Construct. Build. Mater."
+      },
+      {
+        "issue": "1",
+        "key": "10.1016/j.compscitech.2022.109542_bib12",
+        "doi-asserted-by": "crossref",
+        "first-page": "5",
+        "DOI": "10.1016/j.compositesb.2007.02.009",
+        "article-title": "Accelerated testing for long-term strength of innovative CFRP laminates for marine use",
+        "volume": "39",
+        "author": "Miyano",
+        "year": "2008",
+        "journal-title": "Compos. B Eng."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib13",
+        "doi-asserted-by": "crossref",
+        "first-page": "300",
+        "DOI": "10.1016/j.corsci.2018.01.005",
+        "article-title": "Corrosion behavior of friction stir blind riveted Al/CFRP and Mg/CFRP joints exposed to a marine environment",
+        "volume": "132",
+        "author": "Li",
+        "year": "2018",
+        "journal-title": "Corrosion Sci."
+      },
+      {
+        "issue": "5",
+        "key": "10.1016/j.compscitech.2022.109542_bib14",
+        "doi-asserted-by": "crossref",
+        "first-page": "882",
+        "DOI": "10.1007/s42235-019-0103-7",
+        "article-title": "A bionic study on the anti-erosion mechanism of laudakia stoliczkana: experimental and numerical aspects",
+        "volume": "16",
+        "author": "Liang",
+        "year": "2019",
+        "journal-title": "J. Bionic Eng."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib15",
+        "article-title": "Highly thermally conductive flexible copper clad laminates based on sea-island structured boron nitride/polyimide composites",
+        "author": "Xiao",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib16",
+        "doi-asserted-by": "crossref",
+        "first-page": "648",
+        "DOI": "10.1016/j.carbon.2018.07.017",
+        "article-title": "Ultrathin-graphite foam with high mechanical resilience and electroconductibility fabricated through morphology-controlled solid-state pyrolysis of polyaniline foam",
+        "volume": "139",
+        "author": "Xiao",
+        "year": "2018",
+        "journal-title": "Carbon"
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib17",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compositesa.2021.106647",
+        "article-title": "Covalent adaptable networks impart smart processability to multifunctional highly filled polymer composites",
+        "volume": "151",
+        "author": "Cao",
+        "year": "2021",
+        "journal-title": "Compos. Appl. Sci. Manuf."
+      },
+      {
+        "issue": "36",
+        "key": "10.1016/j.compscitech.2022.109542_bib18",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/adfm.202003328",
+        "article-title": "Thermally controlled, active imperceptible artificial skin in visible-to-infrared range",
+        "volume": "30",
+        "author": "Lee",
+        "year": "2020",
+        "journal-title": "Adv. Funct. Mater."
+      },
+      {
+        "issue": "32",
+        "key": "10.1016/j.compscitech.2022.109542_bib19",
+        "doi-asserted-by": "crossref",
+        "first-page": "6835",
+        "DOI": "10.1002/adma.201600786",
+        "article-title": "A sinusoidally architected helicoidal biocomposite",
+        "volume": "28",
+        "author": "Yaraghi",
+        "year": "2016",
+        "journal-title": "Adv. Mater."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib20",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2020.108640",
+        "article-title": "Bionic composite metamaterials for harvesting of microwave and integration of multifunctionality",
+        "volume": "204",
+        "author": "Huang",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "issue": "13",
+        "key": "10.1016/j.compscitech.2022.109542_bib21",
+        "article-title": "Growing living composites with ordered microstructures and exceptional mechanical properties",
+        "volume": "33",
+        "author": "Xin",
+        "year": "2021",
+        "journal-title": "Adv. Mater."
+      },
+      {
+        "issue": "14",
+        "key": "10.1016/j.compscitech.2022.109542_bib22",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/adfm.202010655",
+        "article-title": "Photoelectric visual adaptation based on 0D-CsPbBr3-Quantum-Dots/2D-MoS2 mixed-dimensional heterojunction transistor",
+        "volume": "31",
+        "author": "Xie",
+        "year": "2021",
+        "journal-title": "Adv. Funct. Mater."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib23",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.108908",
+        "article-title": "Biomimetic flexible strain sensor with high linearity using double conducting layers",
+        "volume": "213",
+        "author": "Guo",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "issue": "25",
+        "key": "10.1016/j.compscitech.2022.109542_bib24",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/adfm.202011242",
+        "article-title": "Lycopene-based bionic membrane for stable perovskite photovoltaics",
+        "volume": "31",
+        "author": "Dong",
+        "year": "2021",
+        "journal-title": "Adv. Funct. Mater."
+      },
+      {
+        "issue": "12",
+        "key": "10.1016/j.compscitech.2022.109542_bib25",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/advs.202004727",
+        "article-title": "All in One, Self-powered bionic artificial nerve based on a triboelectric nanogenerator",
+        "volume": "8",
+        "author": "Zhang",
+        "year": "2021",
+        "journal-title": "Adv. Sci."
+      },
+      {
+        "issue": "20",
+        "key": "10.1016/j.compscitech.2022.109542_bib26",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/advs.202102156",
+        "article-title": "Stretchable and conductive composite structural color hydrogel films as bionic electronic skins",
+        "volume": "8",
+        "author": "Zhang",
+        "year": "2021",
+        "journal-title": "Adv. Sci."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib27",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.109245",
+        "article-title": "A novel programmable composite metamaterial with tunable Poisson's ratio and bandgap based on multi-stable switching",
+        "volume": "219",
+        "author": "Wang",
+        "year": "2022",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "issue": "46",
+        "key": "10.1016/j.compscitech.2022.109542_bib28",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/adfm.201804237",
+        "article-title": "Novel defense mechanisms in the armor of the scales of the “Living Fossil” coelacanth fish",
+        "volume": "28",
+        "author": "Quan",
+        "year": "2018",
+        "journal-title": "Adv. Funct. Mater."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib29",
+        "doi-asserted-by": "crossref",
+        "first-page": "204",
+        "DOI": "10.1016/j.jmps.2019.07.001",
+        "article-title": "Hyperelastic phase-field fracture mechanics modeling of the toughening induced by Bouligand structures in natural materials",
+        "volume": "131",
+        "author": "Yin",
+        "year": "2019",
+        "journal-title": "J. Mech. Phys. Solid."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib30",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.compscitech.2021.108650",
+        "article-title": "Toughening mechanism of coelacanth-fish-inspired double-helicoidal composites",
+        "volume": "205",
+        "author": "Yin",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Technol."
+      },
+      {
+        "issue": "1",
+        "key": "10.1016/j.compscitech.2022.109542_bib31",
+        "doi-asserted-by": "crossref",
+        "first-page": "1",
+        "DOI": "10.1016/j.pmatsci.2010.04.003",
+        "article-title": "Natural and biomimetic artificial surfaces for superhydrophobicity, self-cleaning, low adhesion, and drag reduction",
+        "volume": "56",
+        "author": "Bhushan",
+        "year": "2011",
+        "journal-title": "Prog. Mater. Sci."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib32",
+        "doi-asserted-by": "crossref",
+        "first-page": "152",
+        "DOI": "10.3762/bjnano.2.19",
+        "article-title": "Superhydrophobicity in perfection: the outstanding properties of the lotus leaf",
+        "volume": "2",
+        "author": "Ensikat",
+        "year": "2011",
+        "journal-title": "Beilstein J. Nanotechnol."
+      },
+      {
+        "issue": "11",
+        "key": "10.1016/j.compscitech.2022.109542_bib33",
+        "doi-asserted-by": "crossref",
+        "first-page": "1236",
+        "DOI": "10.1038/s41563-020-0768-7",
+        "article-title": "A natural impact-resistant bicontinuous composite nanoparticle coating",
+        "volume": "19",
+        "author": "Huang",
+        "year": "2020",
+        "journal-title": "Nat. Mater."
+      },
+      {
+        "issue": "32",
+        "key": "10.1016/j.compscitech.2022.109542_bib34",
+        "doi-asserted-by": "crossref",
+        "first-page": "6835",
+        "DOI": "10.1002/adma.201600786",
+        "article-title": "A sinusoidally architected helicoidal biocomposite",
+        "volume": "28",
+        "author": "Yaraghi",
+        "year": "2016",
+        "journal-title": "Adv. Mater."
+      },
+      {
+        "issue": "4",
+        "key": "10.1016/j.compscitech.2022.109542_bib35",
+        "doi-asserted-by": "crossref",
+        "first-page": "391",
+        "DOI": "10.1002/adma.200801219",
+        "article-title": "Influence of structural principles on the mechanics of a biological fiber-based composite material with hierarchical organization: the exoskeleton of the LobsterHomarus americanus",
+        "volume": "21",
+        "author": "Fabritius",
+        "year": "2009",
+        "journal-title": "Adv. Mater."
+      },
+      {
+        "issue": "1–2",
+        "key": "10.1016/j.compscitech.2022.109542_bib36",
+        "doi-asserted-by": "crossref",
+        "first-page": "143",
+        "DOI": "10.1016/j.msea.2005.09.115",
+        "article-title": "Microstructure and crystallographic texture of the chitin–protein network in the biological composite material of the exoskeleton of the lobster Homarus americanus",
+        "volume": "421",
+        "author": "Raabe",
+        "year": "2006",
+        "journal-title": "Mat. Sci. Eng. A-Struct."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib37",
+        "doi-asserted-by": "crossref",
+        "first-page": "270",
+        "DOI": "10.1016/j.actbio.2016.11.006",
+        "article-title": "Seagull feather shaft: correlation between structure and mechanical response",
+        "volume": "48",
+        "author": "Wang",
+        "year": "2017",
+        "journal-title": "Acta Biomater."
+      },
+      {
+        "issue": "3",
+        "key": "10.1016/j.compscitech.2022.109542_bib38",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/advs.201600360",
+        "article-title": "Light like a feather: a fibrous natural composite with a shape changing from round to square",
+        "volume": "4",
+        "author": "Wang",
+        "year": "2017",
+        "journal-title": "Adv. Sci."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib39",
+        "doi-asserted-by": "crossref",
+        "first-page": "815",
+        "DOI": "10.1016/j.compositesb.2013.09.017",
+        "article-title": "Compression behavior of laminated composites subjected to damage induced by low velocity impact and drilling",
+        "volume": "56",
+        "author": "Saeed",
+        "year": "2014",
+        "journal-title": "Compos. B Eng."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib40",
+        "doi-asserted-by": "crossref",
+        "first-page": "65",
+        "DOI": "10.1016/j.compositesb.2014.11.031",
+        "article-title": "Flexural strength of bidirectional hybrid epoxy composites reinforced by E glass and T700S carbon fibres",
+        "volume": "72",
+        "author": "Dong",
+        "year": "2015",
+        "journal-title": "Compos. B Eng."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib41",
+        "doi-asserted-by": "crossref",
+        "first-page": "176",
+        "DOI": "10.1016/j.compositesb.2016.05.035",
+        "article-title": "Uncertainties in flexural strength of carbon/glass fibre reinforced hybrid epoxy composites",
+        "volume": "98",
+        "author": "Dong",
+        "year": "2016",
+        "journal-title": "Compos. B Eng."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib42",
+        "doi-asserted-by": "crossref",
+        "first-page": "733",
+        "DOI": "10.1016/j.compositesb.2013.09.020",
+        "article-title": "Analysis of effect of fiber orientation on Young's modulus for unidirectional fiber reinforced composites",
+        "volume": "56",
+        "author": "Wang",
+        "year": "2014",
+        "journal-title": "Compos. B Eng."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib43",
+        "doi-asserted-by": "crossref",
+        "first-page": "186",
+        "DOI": "10.1016/j.compositesb.2016.06.069",
+        "article-title": "Effects of multiple delaminations on the compressive, tensile, flexural, and buckling behaviour of E-glass/epoxy composites",
+        "volume": "100",
+        "author": "Aslan",
+        "year": "2016",
+        "journal-title": "Compos. B Eng."
+      },
+      {
+        "issue": "2",
+        "key": "10.1016/j.compscitech.2022.109542_bib44",
+        "doi-asserted-by": "crossref",
+        "first-page": "656",
+        "DOI": "10.1002/sia.5112",
+        "article-title": "Significant change in water contact angle of electrospray-synthesized SiO2 films depending on their surface morphology",
+        "volume": "45",
+        "author": "Kim",
+        "year": "2013",
+        "journal-title": "Surf. Interface Anal."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib45",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1016/j.cej.2020.124871",
+        "article-title": "Improved dynamic stability of superomniphobic surfaces and droplet transport on slippery surfaces by dual-scale re-entrant structures",
+        "volume": "394",
+        "author": "Wang",
+        "year": "2020",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.compscitech.2022.109542_bib46",
+        "doi-asserted-by": "crossref",
+        "first-page": "463",
+        "DOI": "10.1016/j.compstruct.2019.02.034",
+        "article-title": "Low-velocity impact resistance behaviors of bio-inspired helicoidal composite laminates with non-linear rotation angle based layups",
+        "volume": "214",
+        "author": "Jiang",
+        "year": "2019",
+        "journal-title": "Compos. Struct."
+      },
+      {
+        "issue": "34",
+        "key": "10.1016/j.compscitech.2022.109542_bib47",
+        "doi-asserted-by": "crossref",
+        "DOI": "10.1002/smll.201701121",
+        "article-title": "Energy-efficient oil-water separation of biomimetic copper membrane with multiscale hierarchical dendritic structures",
+        "volume": "13",
+        "author": "Han",
+        "year": "2017",
+        "journal-title": "Small"
+      }
+    ],
+    "container-title": [
+      "Composites Science and Technology"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S0266353822002846?httpAccept=text/xml",
+        "content-type": "text/xml",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S0266353822002846?httpAccept=text/plain",
+        "content-type": "text/plain",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2023,
+          1,
+          21
+        ]
+      ],
+      "date-time": "2023-01-21T17:34:47Z",
+      "timestamp": 1674322487000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0266353822002846"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2022,
+          7
+        ]
+      ]
+    },
+    "references-count": 47,
+    "alternative-id": [
+      "S0266353822002846"
+    ],
+    "URL": "http://dx.doi.org/10.1016/j.compscitech.2022.109542",
+    "relation": {},
+    "ISSN": [
+      "0266-3538"
+    ],
+    "issn-type": [
+      {
+        "value": "0266-3538",
+        "type": "print"
+      }
+    ],
+    "subject": [
+      "General Engineering",
+      "Ceramics and Composites"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2022,
+          7
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "Elsevier",
+        "name": "publisher",
+        "label": "This article is maintained by"
+      },
+      {
+        "value": "Research on the mechanical and water-repellent properties of bionic carbon fiber reinforced plastic composites inspired by coelacanth scale and lotus leaf",
+        "name": "articletitle",
+        "label": "Article Title"
+      },
+      {
+        "value": "Composites Science and Technology",
+        "name": "journaltitle",
+        "label": "Journal Title"
+      },
+      {
+        "value": "https://doi.org/10.1016/j.compscitech.2022.109542",
+        "name": "articlelink",
+        "label": "CrossRef DOI link to publisher maintained version"
+      },
+      {
+        "value": "article",
+        "name": "content_type",
+        "label": "Content Type"
+      },
+      {
+        "value": "© 2022 Elsevier Ltd. All rights reserved.",
+        "name": "copyright",
+        "label": "Copyright"
+      }
+    ],
+    "article-number": "109542"
+  }
+}

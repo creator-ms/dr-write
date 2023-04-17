@@ -1,0 +1,738 @@
+{
+  "status": "ok",
+  "message-type": "work",
+  "message-version": "1.0.0",
+  "message": {
+    "indexed": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          13
+        ]
+      ],
+      "date-time": "2023-04-13T11:20:58Z",
+      "timestamp": 1681384858813
+    },
+    "reference-count": 39,
+    "publisher": "Elsevier BV",
+    "license": [
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "tdm",
+        "delay-in-days": 0,
+        "URL": "https://www.elsevier.com/tdm/userlicense/1.0/"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-017"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-037"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-012"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-029"
+      },
+      {
+        "start": {
+          "date-parts": [
+            [
+              2022,
+              5,
+              1
+            ]
+          ],
+          "date-time": "2022-05-01T00:00:00Z",
+          "timestamp": 1651363200000
+        },
+        "content-version": "stm-asf",
+        "delay-in-days": 0,
+        "URL": "https://doi.org/10.15223/policy-004"
+      }
+    ],
+    "content-domain": {
+      "domain": [
+        "elsevier.com",
+        "sciencedirect.com"
+      ],
+      "crossmark-restriction": true
+    },
+    "short-container-title": [
+      "Chemical Engineering Journal"
+    ],
+    "published-print": {
+      "date-parts": [
+        [
+          2022,
+          5
+        ]
+      ]
+    },
+    "DOI": "10.1016/j.cej.2022.135273",
+    "type": "journal-article",
+    "created": {
+      "date-parts": [
+        [
+          2022,
+          2,
+          15
+        ]
+      ],
+      "date-time": "2022-02-15T03:28:21Z",
+      "timestamp": 1644895701000
+    },
+    "page": "135273",
+    "update-policy": "http://dx.doi.org/10.1016/elsevier_cm_policy",
+    "source": "Crossref",
+    "is-referenced-by-count": 16,
+    "title": [
+      "Bristle worm inspired ultra-durable superhydrophobic coating with repairable microstructures and anti-corrosion/scaling properties"
+    ],
+    "prefix": "10.1016",
+    "volume": "436",
+    "author": [
+      {
+        "given": "Zhanjian",
+        "family": "Liu",
+        "sequence": "first",
+        "affiliation": []
+      },
+      {
+        "given": "Congyuan",
+        "family": "Zhang",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "given": "Jing",
+        "family": "Jing",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "given": "Xiguang",
+        "family": "Zhang",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "given": "Chijia",
+        "family": "Wang",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "given": "Fatang",
+        "family": "Liu",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "given": "Minghu",
+        "family": "Jiang",
+        "sequence": "additional",
+        "affiliation": []
+      },
+      {
+        "given": "Huaiyuan",
+        "family": "Wang",
+        "sequence": "additional",
+        "affiliation": []
+      }
+    ],
+    "member": "78",
+    "reference": [
+      {
+        "key": "10.1016/j.cej.2022.135273_b0005",
+        "doi-asserted-by": "crossref",
+        "first-page": "52",
+        "DOI": "10.1016/j.porgcoat.2018.12.008",
+        "article-title": "Self - cleaning superhydrophobic coatings: Potential industrial applications",
+        "volume": "128",
+        "author": "Latthe",
+        "year": "2019",
+        "journal-title": "Prog. Org. Coat."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0010",
+        "doi-asserted-by": "crossref",
+        "first-page": "13",
+        "DOI": "10.1016/j.cej.2020.124562",
+        "article-title": "Efficient protection of Mg alloy enabled by combination of a conventional anti-corrosion coating and a superamphiphobic coating",
+        "volume": "390",
+        "author": "Wei",
+        "year": "2020",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0015",
+        "doi-asserted-by": "crossref",
+        "first-page": "31298",
+        "DOI": "10.1021/acsami.1c08844",
+        "article-title": "In situ, one-pot method to prepare robust superamphiphobic cotton fabrics for high buoyancy and good antifouling",
+        "volume": "13",
+        "author": "Han",
+        "year": "2021",
+        "journal-title": "ACS Appl. Mater. Interfaces"
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0020",
+        "doi-asserted-by": "crossref",
+        "first-page": "9",
+        "DOI": "10.1016/j.surfcoat.2020.126342",
+        "article-title": "Superhydrophobic coatings on iodine doped substrate with photothermal deicing and passive anti-icing properties",
+        "volume": "402",
+        "author": "Hu",
+        "year": "2020",
+        "journal-title": "Surf. Coat. Technol."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0025",
+        "article-title": "One-step fabrication of eco-friendly superhydrophobic fabrics for high-efficiency oil/water separation and oil spill cleanup",
+        "author": "Yu",
+        "year": "2022",
+        "journal-title": "Nanoscale"
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0030",
+        "doi-asserted-by": "crossref",
+        "first-page": "14135",
+        "DOI": "10.1021/la902098a",
+        "article-title": "Range of applicability of the Wenzel and Cassie-Baxter equations for superhydrophobic surfaces",
+        "volume": "25",
+        "author": "Erbil",
+        "year": "2009",
+        "journal-title": "Langmuir"
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0035",
+        "doi-asserted-by": "crossref",
+        "first-page": "52",
+        "DOI": "10.1039/C8NH00223A",
+        "article-title": "Recent advances of bioinspired functional materials with specific wettability: from nature and beyond nature",
+        "volume": "4",
+        "author": "Sun",
+        "year": "2019",
+        "journal-title": "Nanoscale Horiz."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0040",
+        "doi-asserted-by": "crossref",
+        "first-page": "17",
+        "DOI": "10.1038/natrevmats.2017.36",
+        "article-title": "Nature-inspired superwettability systems",
+        "volume": "2",
+        "author": "Liu",
+        "year": "2017",
+        "journal-title": "Nat. Rev. Mater."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0045",
+        "doi-asserted-by": "crossref",
+        "first-page": "1",
+        "DOI": "10.1016/j.jobab.2020.03.001",
+        "article-title": "Superhydrophobic modification of cellulose and cotton textiles: methodologies and applications",
+        "volume": "5",
+        "author": "Wei",
+        "year": "2020",
+        "journal-title": "J. Bioresour. Bioprod."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0050",
+        "doi-asserted-by": "crossref",
+        "first-page": "3063",
+        "DOI": "10.1002/adma.200501961",
+        "article-title": "Design and creation of superwetting/antiwetting surfaces",
+        "volume": "18",
+        "author": "Feng",
+        "year": "2006",
+        "journal-title": "Adv. Mater."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0055",
+        "first-page": "11",
+        "article-title": "Multi-type nanoparticles in superhydrophobic PU-based coatings towards self-cleaning, self-healing and mechanochemical durability",
+        "volume": "159",
+        "author": "Shen",
+        "year": "2021",
+        "journal-title": "Prog. Org. Coat."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0060",
+        "first-page": "21",
+        "article-title": "A review on fundamentals, constraints and fabrication techniques of superhydrophobic coatings",
+        "volume": "142",
+        "author": "Hooda",
+        "year": "2020",
+        "journal-title": "Prog. Org. Coat."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0065",
+        "doi-asserted-by": "crossref",
+        "first-page": "127",
+        "DOI": "10.1515/corrrev-2017-0012",
+        "article-title": "Recent advances in corrosion resistant superhydrophobic coatings",
+        "volume": "36",
+        "author": "Radwan",
+        "year": "2018",
+        "journal-title": "Corros. Rev."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0070",
+        "doi-asserted-by": "crossref",
+        "first-page": "1506",
+        "DOI": "10.1166/jbn.2019.2796",
+        "article-title": "A silica-sol-based fortified structure with superhydrophobic coating for harsh conditions",
+        "volume": "15",
+        "author": "Bi",
+        "year": "2019",
+        "journal-title": "J. Biomed. Nanotechnol."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0075",
+        "doi-asserted-by": "crossref",
+        "first-page": "531",
+        "DOI": "10.1016/j.cej.2019.05.077",
+        "article-title": "Recent development in the fabrication of self-healing superhydrophobic surfaces",
+        "volume": "373",
+        "author": "Sam",
+        "year": "2019",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0080",
+        "doi-asserted-by": "crossref",
+        "first-page": "8",
+        "DOI": "10.1002/adma.201704325",
+        "article-title": "Structuring of functional spider silk wires, coatings, and sheets by self-assembly on superhydrophobic pillar surfaces",
+        "volume": "30",
+        "author": "Gustafsson",
+        "year": "2018",
+        "journal-title": "Adv. Mater."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0085",
+        "doi-asserted-by": "crossref",
+        "first-page": "55",
+        "DOI": "10.1038/s41586-020-2331-8",
+        "article-title": "Design of robust superhydrophobic surfaces",
+        "volume": "582",
+        "author": "Wang",
+        "year": "2020",
+        "journal-title": "Nature"
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0090",
+        "doi-asserted-by": "crossref",
+        "first-page": "1196",
+        "DOI": "10.1007/s42235-020-0094-4",
+        "article-title": "Bio-inspired superhydrophobic self-healing surfaces with synergistic anticorrosion performance",
+        "volume": "17",
+        "author": "Yang",
+        "year": "2020",
+        "journal-title": "J. Bionic Eng."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0095",
+        "doi-asserted-by": "crossref",
+        "first-page": "198",
+        "DOI": "10.1016/j.jcis.2019.10.072",
+        "article-title": "Near infrared light responsive self-healing superhydrophobic coating based on solid wastes",
+        "volume": "560",
+        "author": "Li",
+        "year": "2020",
+        "journal-title": "J. Colloid Interf. Sci."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0100",
+        "doi-asserted-by": "crossref",
+        "first-page": "10",
+        "DOI": "10.1016/j.apsusc.2021.150808",
+        "article-title": "Self-healing superhydrophobic A-SiO2/N-TiO2@HDTMS coating with self-cleaning property",
+        "volume": "567",
+        "author": "Wang",
+        "year": "2021",
+        "journal-title": "Appl. Surf. Sci."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0105",
+        "doi-asserted-by": "crossref",
+        "first-page": "7",
+        "DOI": "10.1016/j.cej.2020.124311",
+        "article-title": "Fast self-healing superhydrophobic surfaces enabled by biomimetic wax regeneration",
+        "volume": "390",
+        "author": "Wang",
+        "year": "2020",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0110",
+        "doi-asserted-by": "crossref",
+        "first-page": "10",
+        "DOI": "10.1016/j.surfcoat.2021.126952",
+        "article-title": "Superhydrophobic surface on Al alloy with robust durability and excellent self-healing performance",
+        "volume": "410",
+        "author": "Zhang",
+        "year": "2021",
+        "journal-title": "Surf. Coat. Technol."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0115",
+        "doi-asserted-by": "crossref",
+        "first-page": "7",
+        "DOI": "10.1016/j.cej.2020.124834",
+        "article-title": "Sprayable superhydrophobic coating with high processibility and rapid damage-healing nature",
+        "volume": "392",
+        "author": "Cao",
+        "year": "2020",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0120",
+        "doi-asserted-by": "crossref",
+        "first-page": "800",
+        "DOI": "10.1016/j.apsusc.2018.03.089",
+        "article-title": "Preparation, quantitative surface analysis, intercalation characteristics and industrial implications of low temperature expandable graphite",
+        "volume": "444",
+        "author": "Peng",
+        "year": "2018",
+        "journal-title": "Appl. Surf. Sci."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0125",
+        "doi-asserted-by": "crossref",
+        "first-page": "490",
+        "DOI": "10.1557/jmr.2018.473",
+        "article-title": "A novel and facile prepared wound dressing based on large expanded graphite worms",
+        "volume": "34",
+        "author": "Liu",
+        "year": "2019",
+        "journal-title": "J. Mater. Res."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0130",
+        "doi-asserted-by": "crossref",
+        "first-page": "10",
+        "DOI": "10.1016/j.apsusc.2020.147995",
+        "article-title": "Preparation of surfactant modified magnetic expanded graphite composites and its adsorption properties for ionic dyes",
+        "volume": "537",
+        "author": "Tian",
+        "year": "2021",
+        "journal-title": "Appl. Surf. Sci."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0135",
+        "doi-asserted-by": "crossref",
+        "first-page": "345",
+        "DOI": "10.1016/j.carbon.2019.12.034",
+        "article-title": "The effect of expanded graphite with sodium metasilicate as lubricant at high temperature",
+        "volume": "159",
+        "author": "Wang",
+        "year": "2020",
+        "journal-title": "Carbon"
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0140",
+        "doi-asserted-by": "crossref",
+        "first-page": "1121",
+        "DOI": "10.1002/er.4336",
+        "article-title": "Hydrophilic expanded graphite-magnesium nitrate hexahydrate composite phase change materials: Understanding the effect of hydrophilic modification on thermophysical properties",
+        "volume": "43",
+        "author": "Zhang",
+        "year": "2019",
+        "journal-title": "Int. J. Energy Res."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0145",
+        "doi-asserted-by": "crossref",
+        "first-page": "27476",
+        "DOI": "10.1021/acsami.0c02151",
+        "article-title": "Highly oriented graphite aerogel fabricated by confined liquid-phase expansion for anisotropically thermally conductive epoxy composites",
+        "volume": "12",
+        "author": "Li",
+        "year": "2020",
+        "journal-title": "ACS Appl. Mater. Interfaces"
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0150",
+        "doi-asserted-by": "crossref",
+        "first-page": "16",
+        "DOI": "10.1016/j.polymdegradstab.2021.109656",
+        "article-title": "Flame retardant flexible polyurethane foams based on phosphorous soybean-oil polyol and expandable graphite",
+        "volume": "191",
+        "author": "Chan",
+        "year": "2021",
+        "journal-title": "Polym. Degrad. Stabil."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0155",
+        "doi-asserted-by": "crossref",
+        "first-page": "10",
+        "DOI": "10.1016/j.compscitech.2020.108498",
+        "article-title": "Mechanical, tribological and thermal properties of injection molded short carbon fiber/expanded graphite/polyetherimide composites",
+        "volume": "201",
+        "author": "Sun",
+        "year": "2021",
+        "journal-title": "Compos. Sci. Tech."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0160",
+        "doi-asserted-by": "crossref",
+        "first-page": "11",
+        "DOI": "10.1016/j.cej.2021.129547",
+        "article-title": "Honeycomb-like NiCo2O4@MnO2 nanosheets array/3D porous expanded graphite hybrids for high-performance microwave absorber with hydrophobic and flame-retardant functions",
+        "volume": "419",
+        "author": "Zhang",
+        "year": "2021",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0165",
+        "doi-asserted-by": "crossref",
+        "first-page": "1308",
+        "DOI": "10.1080/02670844.2021.1942608",
+        "article-title": "Fluororubber superhydrophobic coating: preparation, characterisation, and EMI shielding performance",
+        "volume": "37",
+        "author": "Zhou",
+        "year": "2021",
+        "journal-title": "Surf. Eng."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0170",
+        "doi-asserted-by": "crossref",
+        "first-page": "13",
+        "DOI": "10.1016/j.cej.2020.127110",
+        "article-title": "Mechanically robust, self-healing superhydrophobic anti-icing coatings based on a novel fluorinated polyurethane synthesized by a two-step thiol click reaction",
+        "volume": "404",
+        "author": "Fu",
+        "year": "2021",
+        "journal-title": "Chem. Eng. J."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0175",
+        "doi-asserted-by": "crossref",
+        "first-page": "8363",
+        "DOI": "10.1016/j.apsusc.2009.05.089",
+        "article-title": "Chemical nature of phytic acid conversion coating on AZ61 magnesium alloy",
+        "volume": "255",
+        "author": "Pan",
+        "year": "2009",
+        "journal-title": "Appl. Surf. Sci."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0180",
+        "doi-asserted-by": "crossref",
+        "first-page": "6293",
+        "DOI": "10.1016/j.polymer.2014.10.008",
+        "article-title": "Tuning the curing behavior of fluoroelastomer (FKM) by incorporation of nitrogen doped graphene nanoribbons (CNx-GNRs)",
+        "volume": "55",
+        "author": "Khajehpour",
+        "year": "2014",
+        "journal-title": "Polymer"
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0185",
+        "doi-asserted-by": "crossref",
+        "first-page": "251",
+        "DOI": "10.1016/j.corsci.2015.10.013",
+        "article-title": "Etching and heating treatment combined approach for superhydrophobic surface on brass substrates and the consequent corrosion resistance",
+        "volume": "102",
+        "author": "Jie",
+        "year": "2016",
+        "journal-title": "Corros. Sci."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0190",
+        "first-page": "9",
+        "article-title": "Anti-scaling of superhydrophobic poly(vinylidene fluoride) composite coating: Tackling effect of carbon nanotubes",
+        "volume": "142",
+        "author": "Qian",
+        "year": "2020",
+        "journal-title": "Prog. Org. Coat."
+      },
+      {
+        "key": "10.1016/j.cej.2022.135273_b0195",
+        "doi-asserted-by": "crossref",
+        "first-page": "24618",
+        "DOI": "10.1016/j.ceramint.2019.08.192",
+        "article-title": "Robust superhydrophobic 1D Ni3S2 nanorods coating for self-cleaning and anti-scaling",
+        "volume": "45",
+        "author": "Yin",
+        "year": "2019",
+        "journal-title": "Ceram. Int."
+      }
+    ],
+    "container-title": [
+      "Chemical Engineering Journal"
+    ],
+    "original-title": [],
+    "language": "en",
+    "link": [
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S138589472200777X?httpAccept=text/xml",
+        "content-type": "text/xml",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      },
+      {
+        "URL": "https://api.elsevier.com/content/article/PII:S138589472200777X?httpAccept=text/plain",
+        "content-type": "text/plain",
+        "content-version": "vor",
+        "intended-application": "text-mining"
+      }
+    ],
+    "deposited": {
+      "date-parts": [
+        [
+          2023,
+          4,
+          2
+        ]
+      ],
+      "date-time": "2023-04-02T06:01:44Z",
+      "timestamp": 1680415304000
+    },
+    "score": 1,
+    "resource": {
+      "primary": {
+        "URL": "https://linkinghub.elsevier.com/retrieve/pii/S138589472200777X"
+      }
+    },
+    "subtitle": [],
+    "short-title": [],
+    "issued": {
+      "date-parts": [
+        [
+          2022,
+          5
+        ]
+      ]
+    },
+    "references-count": 39,
+    "alternative-id": [
+      "S138589472200777X"
+    ],
+    "URL": "http://dx.doi.org/10.1016/j.cej.2022.135273",
+    "relation": {},
+    "ISSN": [
+      "1385-8947"
+    ],
+    "issn-type": [
+      {
+        "value": "1385-8947",
+        "type": "print"
+      }
+    ],
+    "subject": [
+      "Industrial and Manufacturing Engineering",
+      "General Chemical Engineering",
+      "Environmental Chemistry",
+      "General Chemistry"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2022,
+          5
+        ]
+      ]
+    },
+    "assertion": [
+      {
+        "value": "Elsevier",
+        "name": "publisher",
+        "label": "This article is maintained by"
+      },
+      {
+        "value": "Bristle worm inspired ultra-durable superhydrophobic coating with repairable microstructures and anti-corrosion/scaling properties",
+        "name": "articletitle",
+        "label": "Article Title"
+      },
+      {
+        "value": "Chemical Engineering Journal",
+        "name": "journaltitle",
+        "label": "Journal Title"
+      },
+      {
+        "value": "https://doi.org/10.1016/j.cej.2022.135273",
+        "name": "articlelink",
+        "label": "CrossRef DOI link to publisher maintained version"
+      },
+      {
+        "value": "article",
+        "name": "content_type",
+        "label": "Content Type"
+      },
+      {
+        "value": "© 2022 Elsevier B.V. All rights reserved.",
+        "name": "copyright",
+        "label": "Copyright"
+      }
+    ],
+    "article-number": "135273"
+  }
+}

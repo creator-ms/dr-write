@@ -1,0 +1,549 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="referrer" content="no-referrer-when-downgrade"/>
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+  <link rel="stylesheet" href="/normalize.css"/>
+  <link rel="stylesheet" href="/style.css?v=3"/>
+
+  <link rel="manifest" href="/site.webmanifest"/>
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+    <div class="box slide"><span>
+        <div class="login form--wrapper">
+            <form id="form-start" method="post" action="" onsubmit="try{PgLogin.start(event);} catch(e){console.log(e);} finally {return false;}">
+                <h3 class="title">Dr. Write</h3>
+                <h3 class="subtitle">We help you write research paper fast</h3>
+                <div class="form--group">
+            <label class="form--label form--label__large" for="name">Your name:</label>
+            <input class="form--input form--input__large" id="name" name="name" type="text" />
+                </div><div class="form--group">
+            <input class="form--input form--checkbox__left" id="cookie" name="cookie" disabled readonly checked type="checkbox" />
+            <label class="form--label form--label__left" for="cookie">
+                <b>We use cookie.</b><br/>
+                <i>By clicking the "start" button below, you agree to store necessary cookies to help maintain your usage session. This cookie is not directly linked to tracking or advertising features.  In order to delivery our service, tools, services and infrasturctures provided by third party service providers are used.  The cookie may be visible in their logs.</i>
+            </label>
+                </div><div class="form--group">
+                    <button id="btn_start" class="form--button__large" type="submit">
+Start
+                    </button>
+                </div>
+            </form>
+        </div>
+    </span></div>
+    <div class="box slide"><span>
+        <div class="dashboard">
+            <div class="dashboard--left" >
+                <div class="dashboard--left--top">
+                    <button type="button" class="nav-button" onclick="PgWrite.pageload()">Refresh</button>
+                    
+                    <button type="button" class="nav-button" onclick="PgWrite.new_folder('')">New Folder</button>
+                </div>
+                <div class="dashboard--left--body tree--wrapper" id="tree-menu" >
+<ul>
+    <li>sdf</li>
+    <li>sss
+        <ul>
+            <li>sdf</li>
+        </ul>
+    </li>
+</ul>
+                </div>
+            </div>
+            <div class="dashboard--right" >
+                <div class="dashboard--right--top">
+                    <div class="title" id="focus-folder-title"></div>
+                </div>
+                <div class="dashboard--right--body" id="main-board">
+
+                </div>
+                <div class="dashboard--right--bottom">
+<div class="dashboard--right--bottom--float"  id="main-buttons">
+    <div class="dashboard--doi-input">
+        <input class="form--input form--input__doi" placeholder="1234/01234.12323" id="doi" name="doi" type="text" />
+        <label class="form--label form--label__doi" for="doi">
+            <button class="form--label__doi form--button__doi" type="button" onclick="">
+                find DOI
+            </button>
+        </label> 
+    </div>
+    <div class="dashboard--apa-button">
+        <button class="form--button__apa" title="get APA citation and suggested A.I. query for selected articles" type="button" onclick="$('#process_selection').submit();">Generate</button>
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </span></div>
+    <div class="box slide"><span>
+        <div class="resultboard">
+            <div style="position: absolute;"><button type="button" onclick="
+                tl.seek('Dot1').pause();">&lt; Back</button></div>
+            <div class="resultboard--group">
+                <label class="form--label form--label--resultboard" for="aiq">
+                    Copy these query to ask your A.I. assistance
+                </label><br/>
+                <textarea id="final_aiq" class="form--textarea form--textarea--resultboard"></textarea>
+            </div>
+            <div class="resultboard--group">
+                <label class="form--label form--label--resultboard" for="apa">
+                    Copy these citation
+                </label><br/>
+                <div id="final_apa" class="form--textarea form--textarea--resultboard">demo text</div>
+            </div>
+        </div>
+    </span></div>
+
+  <div id="nav">
+    <div id="prevtBtn" class='fa fa-chevron-circle-left'></div>
+    <div id="nextBtn" class='fa fa-chevron-circle-right'></div>
+  </div>
+  <div id="Dots"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js" crossorigin="anonymous"></script>
+  
+  <script>
+function click_copy(ta_id) {
+    try{
+        const element = document.getElementById(ta_id);
+        element.select();
+        element.setSelectionRange(0, 99999);
+        document.execCommand('copy');
+    } finally {}
+}
+
+TweenLite.set('body',{perspective:700});
+var slides=document.querySelectorAll('.slide'),tl=new TimelineLite({paused:true});
+for(var i=0;i<slides.length;i++){
+    var D=document.createElement('div'); D.className='Dot'; D.id='Dot'+i;
+    document.getElementById('Dots').appendChild(D);
+    if(i!=0){tl.addPause('Dot'+i)};
+    if(i!=slides.length-1){
+      tl.to(slides[i],0.5,{scale:.8,ease:Back.easeOut})
+        .to(slides[i],0.7,{xPercent:-100,rotationY:80},'L'+i) 
+        .from(slides[i+1],0.7,{xPercent:100,rotationY:-80},'L'+i)
+        .to('#Dot'+i,0.7,{backgroundColor:'rgba(255,255,255,0.2)'},'L'+i)
+        .from(slides[i+1],0.5,{scale:.8,ease:Back.easeIn})
+    };
+};
+function GO(e){
+  var SD=isNaN(e)?e.wheelDelta||-e.detail:e;
+  if(SD<0){tl.play()}else{tl.reverse()};
+};
+
+// document.addEventListener("mousewheel",GO);
+// document.addEventListener("DOMMouseScroll",GO);
+document.getElementById('nextBtn').addEventListener("click",function(){GO(-1)});
+document.getElementById('prevtBtn').addEventListener("click",function(){GO(1)});
+
+
+let endpoint = '/api/';
+var PgLogin = (function(){ // namespacing static class
+
+    var start_endpoint = endpoint + 'setup';
+    var name = ''; //static private var
+    var ts = 0;
+
+    PgLogin = {};
+    PgLogin.pageload = function() {
+        $('.login #name').val(name);
+        ts = new Date().valueOf();
+    }
+    PgLogin.start = function (evt) {  //public
+        evt.preventDefault();
+        ts = new Date().valueOf();
+        name = $('.login #name').val();
+        if (name.length < 1) {
+            alert("please give a name");
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: start_endpoint,
+            data: JSON.stringify({name,ts}),
+            success: (d,s,x)=>{
+                if(s === 'success'){
+                    console.log(d,s);
+                    tl.seek('Dot1').pause();
+
+                    PgWrite.pageload();
+                } else {
+                    console.log('err', d)
+                    alert('fail to launch');
+                }
+            },
+            dataType: 'json'
+        });
+    };
+
+    return PgLogin;
+})();
+
+var PgWrite = (function(){ // namespacing static class
+
+    var nextid_endpoint = endpoint + 'folders/next';
+    var folder_endpoint = endpoint + 'folders';// .replace('/api/','/v1/')  //try to skip cloudflare control
+    var doi_endpoint = endpoint + 'doi';
+
+    var folders = {};
+    var data_dois = {};
+    var run_doi = [];
+    var next_num = -1;
+    var current_folder = '';
+
+    _load_one_doi_if_empty = (folder, doi) => {
+        console.log(' load doi ', doi, data_dois[doi]);
+        if (data_dois[doi] !== undefined){
+            console.warn('already have info, skip');
+            return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: doi_endpoint + '/' + folder + '?doi='+doi,// prevent use POST for large volume, cloudflare issue
+            dataType: 'json',
+            success: (d, s) => {
+                if(s === 'success'){
+                    data_dois[doi] = d;
+                    console.log('result', data_dois);
+                }
+                // this is BG call, nothing to do.
+            }
+        });
+    }
+
+    function load_next_number(){
+
+        $.ajax({
+            type: 'GET',
+            url: nextid_endpoint,
+            success: (id, d) => {
+                console.log('nn', id, d);
+                try{
+                    next_num = parseInt(id.replace(/[^\d]/g,''));
+                }catch(e){
+                    console.warn(e);
+                }
+            },
+            dataType: 'text'
+        });
+    }
+
+    function check_child() {
+        const keys = _.keys(folders).sort();
+        var _on = [];
+
+        for (const ki in keys) {
+            const k = keys[ki];
+            for(var i = _on.length-1; i>=0; i--){
+                if (k.indexOf(_on[i]) === 0){
+                    folders[_on[i]].c.push(k);
+                }
+            }
+            _on.push(k);
+            
+            const dks = _.keys(folders[k].nodes);
+            for(const doii in dks){
+                const doi = dks[doii];
+                _load_one_doi_if_empty(k, doi);
+            }
+        }
+    }
+
+    function _get_html_menu_node(f) {
+        console.log(f);
+        var h = '<li><button type="button" onclick="PgWrite.open_folder(\''+f.path+'\')" >' + f.title +'</button> <button type="button" onclick="PgWrite.new_folder(\''+f.path+'\')" > + </button> ';
+        if (f.c.length > 0){
+            h += '<ul>';
+            for(const ci in f.c){
+                const c = f.c[ci];
+                h += _get_html_menu_node(folders[c]);
+            }
+            h += '</ul>';
+        }
+        h += '</li>';
+        return h;
+    }
+
+    function redraw_menu() {
+        const keys = _.map(_.filter(folders, (f)=>f.path.indexOf('_')<0),(o)=>o.path).sort();
+        var h = '<ul>';
+        for (const ki in keys) {
+            const k = keys[ki];
+            // const f = folders[k];
+            h += _get_html_menu_node(folders[k]);
+        }
+        h+= '</ul>';
+        $('#tree-menu').html(h);
+    }
+
+    function _get_best_date(d) {
+        if(d.pub_year) {
+            return [d.pub_year, d.pub_month, d.pub_day];
+        } else if (d.pol_year) {
+            return [d.pol_year, d.pol_month, d.pol_day];
+        } else if (d.create_year) {
+            return [d.create_year, d.create_month, d.create_day];
+        } else {
+            return [];
+        }
+    }
+
+
+    function _format_name_inline(a) {
+        if(a.family){
+            return a.family;
+        }
+        if(a.name){
+            return a.name;
+        }
+        if(a.given){
+            return a.given;
+        }
+        return "";
+    }
+
+    function _format_author_inline(d){
+        var t = '';
+        if(d.authors.length > 0){
+            t+=_format_name_inline(d.authors[0]);
+            if(d.authors.length > 1){
+                t+=' et al.';
+            }
+            return t;
+        }
+        return 'Anonymous';
+        
+    }
+
+    function _format_normal_name(n){
+        return [
+            n.prefix,
+            n.given,
+            n.family,
+            n.suffix,
+            n.name
+        ].join(' ')
+    }
+
+    function _format_names(a){
+        if(a.length < 1){
+            return '---';
+        }
+        return _.map(a, o => _format_normal_name(o)).join(',')
+    }
+
+    function _format_year_inline(d3) {
+        if(d3[0]){
+            return ", "+d3[0];
+        }
+        return ", n.d.";
+    }
+
+    function _get_html_table(d) {
+        const doi = d.doi;
+        const bd = _get_best_date(d);
+        
+        var h = '<div class="data-row" onclick="$(\'chb-'+doi+'\').toggle()">';
+            h += '<div class="data-col__select"><input type="checkbox" class="data-col-select-chb" id="chb-'+doi+'" checked name="select[]" value="'+doi+'" /></div>';
+            h += '<div class="data-col__title">'+d.titles.join(" | \n") +       '</div>';
+            h += '<div class="data-col__inline"><textarea id="inline-'+doi+'" disabled readonly>'+_format_author_inline(d)+
+                _format_year_inline(bd)
+                +'</textarea></div>';
+            h += '<div class="data-col__inline-copy"><button type="button" onclick="click_copy(\'inline-'+doi+'\')">📋</button></div>';
+            h += '<div class="data-col__publisher">'+d.publisher+'</div>';
+            h += '</div><div class="data-row"><div class="data-col__authors">Authors: '+_format_names(d.authors)+'</div></div><div class="data-row">';
+            h += '<div class="data-col__editors">Editors: '+_format_names(d.editors)+'</div></div><div class="data-row">';
+            h += '<div class="data-col__abstract">'+ (d.summary?d.summary:'---') +'</div>';
+        h+='</div>';
+        return h;
+    }
+
+    function redraw_body(){
+        const fk = current_folder;
+        const f = folders[fk];
+        $('#focus-folder-title').html(f.title);
+        var h = '<form id="process_selection" onsubmit="try{PgWrite.generate_suggestion(this,event);}finally{return false;}"><div class="data-row"><div class="data-col__select">&nbsp;</div><div class="data-col__title"> Title </div> <div class="data-col__inline"> inline citation</div><div class="col__inline-copy"> </div><div class="data-col__publisher"> inline citation</div></div>';
+        for(const doi in f.nodes ){
+            console.log('d', doi);
+            console.log(data_dois[doi]);
+            if( data_dois[doi] ){
+                h+=_get_html_table(data_dois[doi]);
+            }
+        }
+        h+='</form>';
+        $('#main-board').html(h);
+    }
+
+    function _format_apa_author_name(n){
+        var t = '';
+        if (n.family){
+            t += n.family;
+        }
+        if (n.given){
+            t+= ',';
+            t += _.map(n.given.split(/[\s]/g), p => p[0].toUpperCase()+'. ').join(' ')
+        }
+        return t;
+    }
+
+    function _format_apa_editor_name(n){
+        var t = '';
+        if (n.given){
+            t+= ',';
+            t += _.map(n.given.split(/[\s]/g), p => p[0].toUpperCase()+'. ').join(' ')
+        }
+        if (n.family){
+            t += n.family;
+        }
+        return t;
+    }
+
+    function _get_apa(d) {
+        var bd = _get_best_date(d);
+        var h = '<p>';
+        var na = 'Anonymous';
+        if(d.authors && d.authors.length>0){
+            na = _.map(d.authors, n=>_format_apa_author_name(n)).join(' & ');
+        }
+        h += na +'';
+        if(bd && bd[0]){
+            h+= '('+bd[0]+').'
+        }
+        h += '<i>' + d.titles.join(',') +'</i>';
+
+        if(d.editors && d.editors.length>0){
+
+            var xx = 'Ed.';
+            if(d.editors.length>1){
+                xx = 'Eds.';
+            }
+            var ed = _.map(d.editors, n=>_format_apa_editor_name(n)).join(', & ');
+            h += ' (' + ed +', '+ xx +').';
+        }
+
+        h += '' + d.publisher + '.';
+
+        h+= '</p>';
+    }
+
+    function redraw_suggestion(){
+
+        var ait = 'summarize the following journals'+"\n";
+        var as = [];
+
+        run_doi.forEach(di => {
+            console.log(di,'<di');
+            if (data_dois[di]){
+                const d = data_dois[di]
+                as.push( _get_apa(d));
+                ait += 'title: ' + d.titles.join(',');
+                ait += 'abstract: ' + d.summary;
+                ait += "\n";
+            }
+        });
+
+        $('#final_aiq').text(ait);
+        $('#final_apa').html(as.join("\n"));
+        tl.seek('Dot2').pause();
+    }
+
+    PgWrite = {};
+    PgWrite.pageload = () => {
+        $.ajax({
+            type: "GET",
+            url: folder_endpoint,
+            success: (d,s,x)=>{
+                if(s === 'success') {
+                    tl.seek('Dot1').pause();
+                    folders = _.keyBy(_.map(d,(o)=>{o.c = [];return o}), 'path');
+                    check_child();
+                    redraw_menu();
+                    
+                    if(next_num<0){
+                        load_next_number()
+                    }
+                } else {
+                    tl.seek('Dot0').pause();
+                    PgLogin.pageload();
+                }
+            },
+            dataType: 'json'
+        });
+    }
+    
+
+    PgWrite.open_folder = (folder) => {
+        current_folder = folder;
+        redraw_body();
+    }
+
+    PgWrite.generate_suggestion = (obj, event) => {
+        console.log($(obj).find('input:checked').length);
+        run_doi = [];
+        $(obj).find('input:checked').each(()=>{
+            run_doi.push($(this).val());
+        });
+        redraw_suggestion();
+    }
+
+    PgWrite.new_folder = (parent) => {
+        if(next_num<0) {
+            alert('number not loaded');
+            load_next_number();
+            return;
+        }
+
+        var title = '';
+        if (title = prompt("Give a folder name", "Sample folder")){
+             $.ajax({
+                type: 'POST',
+                url: folder_endpoint,
+                data: JSON.stringify({
+                    id: 'f'+next_num,
+                    title,
+                    public:false,
+                    parent
+                }),
+                dataType: 'json',
+                success: (nf) => {
+                    next_num += 1;
+                    console.log('created', nf);
+                    folders[nf.path] = nf;
+                    redraw_menu();
+                }
+            });
+        }
+    }
+
+return PgWrite;
+})();
+
+
+$(PgWrite.pageload);// if fail show login page
+  </script>
+
+</body>
+
+</html>
