@@ -177,10 +177,11 @@ body {
   flex-shrink: 0;
 }
 .dashboard--right--body {
-
   flex-basis: 1;
   flex-grow: 1;
   flex-shrink: 1;
+  overflow: auto;
+  overflow-y: scroll;
 }
 .dashboard--right--bottom {
   height: 80px;
@@ -296,14 +297,16 @@ body {
   border: 1px solid blue;
   border-radius: 5px;
 }
-.form--textarea--resultboard#aiq{
+.form--textarea--resultboard#final_aiq{
   height: 65vh;
+  min-height: 300px;
   text-align: left;
   overflow: scroll;
   padding: 3px;
 }
-.form--textarea--resultboard#apa{
+.form--textarea--resultboard#final_apa{
   height: 10vh;
+  max-height: 300px;
   text-align: left;
   overflow: scroll;
   padding: 3px;
